@@ -4,12 +4,13 @@ import { Layout } from "./Layout.js";
 import { AcmeLogo } from "./AcmeLogo.js";
 import { useTheme as useNextTheme } from "next-themes";
 import { Switch } from "@nextui-org/react";
+import { useState } from "react";
 
 export default function Nav() {
   const { setTheme } = useNextTheme();
   const { isDark, type } = useTheme();
-  const [variant, setVariant] = React.useState("default");
-  const [activeColor, setActiveColor] = React.useState("primary");
+  const [variant, setVariant] = useState("default");
+  const [activeColor, setActiveColor] = useState("primary");
 
   //   const { isDark } = useTheme();
 
@@ -24,17 +25,7 @@ export default function Nav() {
   ];
 
   const colors = ["primary", "secondary", "success", "warning", "error"];
-  const collapseItems = [
-    "Features",
-    "Customers",
-    "Pricing",
-    "Company",
-    "Legal",
-    "Team",
-    "Help & Feedback",
-    "Login",
-    "Sign Up",
-  ];
+  const collapseItems = ["Posts", "Contact", "About"];
 
   const menuLinkContent = [
     {
@@ -103,7 +94,7 @@ export default function Nav() {
 
         <Navbar.Collapse>
           {collapseItems.map((item, index) => (
-            <Navbar.CollapseItem key={item}>
+            <Navbar.CollapseItem key={index}>
               <Link
                 color="inherit"
                 css={{

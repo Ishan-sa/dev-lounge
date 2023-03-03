@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import { NextUIProvider, createTheme } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import Nav from "../../components/Navbar/Navbar";
+import Nav from "../components/Navbar/Navbar";
 
 // 2. Call `createTheme` and pass your custom values
 const lightTheme = createTheme({

@@ -1,7 +1,19 @@
+import Hero from "@/components/Hero/Hero";
+import Posts from "@/components/Posts/Posts";
 import Head from "next/head";
-import Image from "next/image";
+// import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+
+// import SyntaxHighlighter from "react-syntax-highlighter";
 
 export default function Home() {
+  const sampleCode = [
+    `export default function (context) {
+  const { store, redirect } = context
+  if (!store.state.authUser) {
+    return redirect('/login')
+  }
+}`,
+  ];
   return (
     <>
       <Head>
@@ -10,28 +22,12 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex flex-col items-center justify-center px-8 lg:flex-row py-6">
-        <div className="flex flex-col justify-center items-left gap-4">
-          <div className="flex">
-            <h1 className="text-6xl font-bold">
-              Building the web, one line of code at a time.
-            </h1>
-          </div>
-          <div className="flex">
-            <h3 className="text-[#808080] italic">
-              Follow me on my journey to becoming a better web developer, one
-              line of code at a time.
-            </h3>
-          </div>
+      <main className="px-8 lg:px-4">
+        <div className="h-screen">
+          <Hero />
         </div>
-        <div className="flex">
-          <Image
-            src="/hero/code_1.png"
-            height={1300}
-            width={1300}
-            alt="hero"
-            quality={100}
-          />
+        <div className="h-screen">
+          <Posts />
         </div>
       </main>
     </>
