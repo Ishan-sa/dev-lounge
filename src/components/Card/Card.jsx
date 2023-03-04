@@ -1,6 +1,6 @@
 import { Card, Col, Text } from "@nextui-org/react";
 
-export default function Card1() {
+export default function Card1({ topHeader, title }) {
   return (
     <>
       <Card>
@@ -12,10 +12,10 @@ export default function Card1() {
               transform="uppercase"
               color="#ffffffAA"
             >
-              What to watch
+              {topHeader || "Top Header"}
             </Text>
             <Text h4 color="white" size={20} weight="bold">
-              Stream the Acme event
+              {title || "Title"}
             </Text>
           </Col>
         </Card.Header>

@@ -20,6 +20,7 @@
     "@prisma/client": "^4.11.0",
     "markdown-to-jsx": "^7.1.9",
     "next": "13.2.2",
+    "next-auth": "^4.20.1",
     "next-themes": "^0.2.1",
     "react": "18.2.0",
     "react-copy-to-clipboard": "^5.1.0",

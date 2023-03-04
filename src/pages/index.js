@@ -1,7 +1,10 @@
+import Card1 from "@/components/Card/Card";
 import Hero from "@/components/Hero/Hero";
 import Posts from "@/components/Posts/Posts";
 import Head from "next/head";
 // import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+// import { prisma } from "../../server/db/client";
+import { useState, useEffect } from "react";
 
 // import SyntaxHighlighter from "react-syntax-highlighter";
 
@@ -14,6 +17,13 @@ export default function Home() {
   }
 }`,
   ];
+
+  // const [newBlogCardData, setNewBlogCardData] = useState(cards);
+
+  // useEffect(() => {
+  //   setNewBlogCardData(cards);
+  // }, [newBlogCardData]);
+
   return (
     <>
       <Head>
@@ -27,6 +37,28 @@ export default function Home() {
           <Hero />
         </div>
         <div className="h-screen">
+          {/* <Posts
+            cardsData={newBlogCardData.map((card, index) => {
+              return (
+                <>
+                  <Card1
+                    key={index}
+                    topHeader={card.topHeader}
+                    title={card.title}
+                  />
+                </>
+              );
+            })}
+          /> */}
+          {/* {newBlogCardData.map((card, index) => {
+            return (
+              <Card1
+                key={index}
+                topHeader={card.topHeader}
+                title={card.title}
+              />
+            );
+          })} */}
           <Posts />
         </div>
       </main>
@@ -34,4 +66,11 @@ export default function Home() {
   );
 }
 
-// "width: 799px; height: 690px; border:0; transform: scale(1); overflow:hidden;"
+// export async function getServersideProps() {
+//   const blogCardData = await prisma.blogCard.findMany();
+//   return {
+//     props: {
+//       cards: JSON.parse(JSON.stringify(blogCardData)),
+//     },
+//   };
+// }
