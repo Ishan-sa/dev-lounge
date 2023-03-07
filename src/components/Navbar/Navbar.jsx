@@ -5,12 +5,19 @@ import { AcmeLogo } from "./AcmeLogo.js";
 import { useTheme as useNextTheme } from "next-themes";
 import { Switch } from "@nextui-org/react";
 import { useState } from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/router.js";
 
-export default function Nav() {
+export default function Nav({
+  onSignIn = () => {},
+  onSignOut = () => {},
+  onSignUp = () => {},
+}) {
   const { setTheme } = useNextTheme();
   const { isDark, type } = useTheme();
   const [variant, setVariant] = useState("default");
   const [activeColor, setActiveColor] = useState("primary");
+  const [handleSignInOut, setHandleSignInOut] = useState(false);
 
   //   const { isDark } = useTheme();
 
@@ -29,8 +36,12 @@ export default function Nav() {
 
   const menuLinkContent = [
     {
-      name: "Posts",
-      href: "/posts",
+      name: "Home",
+      href: "/",
+    },
+    {
+      name: "Articles",
+      href: "/articles",
     },
     {
       name: "Contact",
@@ -42,10 +53,14 @@ export default function Nav() {
     },
   ];
 
+  const { data: session } = useSession();
+
+  const router = useRouter();
+
   return (
     <Layout>
       <Navbar isBordered variant="sticky">
-        <Navbar.Brand>
+        <Navbar.Brand onClick={() => router.push("/")}>
           <AcmeLogo />
           <Text b color="inherit" hideIn="xs">
             Dev Lounge
@@ -58,29 +73,41 @@ export default function Nav() {
           variant="underline"
           className="hidden lg:flex"
         >
-          {/* <Navbar.Link href="#">Posts</Navbar.Link>
-          <Navbar.Link isActive href="#">
-            Contact
-          </Navbar.Link>
-          <Navbar.Link href="#">About</Navbar.Link> */}
           {menuLinkContent.map((item, index) => (
             <>
-              <Navbar.Link key={index} href={item.href}>
+              <Navbar.Link
+                key={index}
+                href={item.href}
+                isActive={router.pathname === item.href ? true : false}
+              >
                 {item.name}
               </Navbar.Link>
             </>
           ))}
         </Navbar.Content>
         <Navbar.Content>
-          <Navbar.Link color="primary" href="#">
-            Login
-          </Navbar.Link>
-          {/* <Button color="primary">Login</Button> */}
-          <Navbar.Item>
+          {session ? (
+            <>
+              <Navbar.Link color="primary" onClick={onSignOut}>
+                Sign Out
+              </Navbar.Link>
+            </>
+          ) : (
+            <>
+              <Navbar.Link color="primary" onClick={onSignIn}>
+                Login
+              </Navbar.Link>
+              <Navbar.Link color="primary" onClick={onSignUp}>
+                Sign Up
+              </Navbar.Link>
+            </>
+          )}
+
+          {/* <Navbar.Item>
             <Button auto flat as={Link} href="#" color="primary">
               Sign Up
             </Button>
-          </Navbar.Item>
+          </Navbar.Item> */}
           <div className="block lg:hidden">
             <Navbar.Toggle aria-label="toggle navigation" />
           </div>
@@ -92,7 +119,7 @@ export default function Nav() {
           </div>
         </Navbar.Content>
 
-        <Navbar.Collapse>
+        <Navbar.Collapse className="block lg:hidden">
           {collapseItems.map((item, index) => (
             <Navbar.CollapseItem key={index}>
               <Link
@@ -111,12 +138,3 @@ export default function Nav() {
     </Layout>
   );
 }
-
-/* 
-    <div>
-            <Switch
-              checked={isDark}
-              onChange={(e) => setTheme(e.target.checked ? "dark" : "light")}
-            />
-          </div>
-*/

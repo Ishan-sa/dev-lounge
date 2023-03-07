@@ -1,6 +1,6 @@
 import { Card, Col, Text } from "@nextui-org/react";
 
-export default function Card1({ topHeader, title }) {
+export default function Card1({ topHeader, title, image }) {
   return (
     <>
       <Card>
@@ -20,11 +20,12 @@ export default function Card1({ topHeader, title }) {
           </Col>
         </Card.Header>
         <Card.Image
-          src="https://nextui.org/images/card-example-4.jpeg"
+          src={image || "https://nextui.org/images/card-example-4.jpeg"}
           objectFit="cover"
           width="100%"
-          height={340}
+          height="100%"
           alt="Card image background"
+          className="hover:scale-110 transition-all duration-500 ease-in-out hover:opacity-90"
         />
       </Card>
     </>

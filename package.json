@@ -16,8 +16,12 @@
     "production:build": "npx prisma generate && npx prisma migrate deploy && next build"
   },
   "dependencies": {
+    "@mdx-js/loader": "^2.3.0",
+    "@mdx-js/react": "^2.3.0",
+    "@next/mdx": "^13.2.3",
     "@nextui-org/react": "^1.0.0-beta.12",
     "@prisma/client": "^4.11.0",
+    "@tailwindcss/typography": "^0.5.9",
     "markdown-to-jsx": "^7.1.9",
     "next": "13.2.2",
     "next-auth": "^4.20.1",
