@@ -1,0 +1,126 @@
+<div className="flex flex-col px-8 max-w-[800px] m-auto gap-2" >
+In the world of web development, React has become a popular choice among developers for creating user interfaces. It is a powerful library that allows developers to build reusable components for their applications. However, building an application in React requires some additional setup, such as configuring a build process, routing, and server-side rendering. This is where Next.js comes in, offering a streamlined development experience with added features that are not available in Create React App (CRA). In this article, we will discuss the advantages of using Next.js over CRA and provide code examples where necessary.
+
+## What is Create React App?
+
+**Create React App (CRA)** is a popular tool used for setting up a new React project. It is a command-line tool that generates a preconfigured project with the necessary tools and configurations. CRA provides a simple and easy-to-use development environment that allows developers to quickly get started with building React applications.
+
+## What is Next.js?
+
+**Next.js** is a framework for building server-side rendered React applications. It offers many features out of the box, such as _server-side rendering, static site generation, automatic code splitting, and dynamic imports_. Next.js provides an opinionated approach to building React applications, which can lead to a more efficient and streamlined development experience.
+
+### Why use Next.js instead of CRA?
+
+1. #### Server-side rendering
+
+One of the most significant advantages of using Next.js over CRA is the ability to perform server-side rendering (SSR). SSR enables a web page to be pre-rendered on the server and delivered to the client as a fully rendered HTML page. This approach provides several benefits, such as faster initial page load times, improved search engine optimization, and better performance on slower devices.
+
+To demonstrate the power of server-side rendering, let's compare two applications that perform the same task: rendering a list of blog posts. The first application is built using CRA and the second using Next.js.
+CRA Example
+
+**First, let's create a new React project using CRA:**
+
+```bash
+npx create-react-app cra-example
+cd cra-example
+npm start
+```
+
+Next, let's create a simple blog post component:
+
+```jsx
+import React from "react";
+
+const BlogPost = ({ title, content }) => {
+  return (
+    <div>
+      <h2>{title}</h2>
+      <p>{content}</p>
+    </div>
+  );
+};
+
+export default BlogPost;
+```
+
+Finally, let's render a list of blog posts in our app:
+
+```jsx
+import React from "react";
+import BlogPost from "./BlogPost";
+
+const App = () => {
+  const blogPosts = [
+    {
+      title: "My First Blog Post",
+      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    },
+    {
+      title: "My Second Blog Post",
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada volutpat turpis, a fringilla risus commodo quis.",
+    },
+  ];
+
+  return (
+    <div>
+      {blogPosts.map((post, index) => (
+        <BlogPost key={index} title={post.title} content={post.content} />
+      ))}
+    </div>
+  );
+};
+
+export default App;
+```
+
+When we run this application, we can see that the blog posts are being rendered on the client-side. This means that the browser must download the JavaScript code and then render the blog posts.
+Next.js Example
+
+**Next, let's create the same application using Next.js:**
+
+```bash
+npx create-next-app next-example
+cd next-example
+npm run dev
+```
+
+Next.js automatically sets up server-side rendering, so we can use the same blog post component as before. The only change we need to make is to update our pages/index.js file to fetch the blog posts from an API endpoint:
+
+```jsx
+import React from "react";
+import BlogPost from "../components/BlogPost";
+
+const Home = ({ posts }) => {
+  return (
+    <div>
+      {posts.map((post) => (
+        <BlogPost key={post.id} title={post.title} content={post.body} />
+      ))}
+    </div>
+  );
+};
+
+export async function getServerSideProps() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const posts = await res.json();
+  return { props: { posts } };
+}
+
+export default Home;
+```
+
+In this example, we are using the getServerSideProps function to fetch the blog posts from the API endpoint on the server-side. This means that the blog posts will be pre-rendered on the server and delivered to the client as fully rendered HTML pages. As a result, the browser only needs to download the HTML, CSS, and JavaScript required to make the application interactive, resulting in a faster initial load time.
+
+2. #### Automatic Code Splitting
+
+   Next.js also provides automatic code splitting, which allows the browser to only download the JavaScript code required for a particular page. This approach reduces the initial load time and improves the performance of the application. CRA does not provide automatic code splitting, so developers must manually configure the build process to split the code.
+
+3. #### Static Site Generation
+   Next.js also provides static site generation (SSG), which generates HTML pages at build time rather than runtime. This approach can be useful for websites that do not require dynamic content and can significantly improve the performance of the application. CRA does not provide SSG, so developers must use external tools or libraries to achieve the same result.
+
+### Conclusion
+
+In conclusion, Next.js offers several advantages over CRA, including server-side rendering, automatic code splitting, and static site generation. These features can improve the performance and efficiency of the application and provide a more streamlined development experience. While CRA is a great tool for quickly setting up a new React project, Next.js is a better choice for more complex applications that require server-side rendering and advanced performance optimizations.
+
+</div>

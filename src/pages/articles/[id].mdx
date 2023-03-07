@@ -1,14 +1,19 @@
-<div className="px-8 flex flex-col justify-center max-w-[600px] m-auto">
-## useEffect
-React is a popular front-end library that allows developers to build powerful, dynamic user interfaces with ease. One of the core features of React is the useEffect hook, which allows developers to manage side effects in their components. In this article, we will explore what the useEffect hook is, how it works, and how to use it in a React app.
+<div className="flex flex-col px-8 max-w-[800px] m-auto gap-2">
 
-### What is the `useEffect` hook?
+<centerDiv className="flex text-center mt-8 font-bold text-xl">React</centerDiv>
+React is a popular front-end library that allows developers to build powerful, dynamic
+user interfaces with ease. One of the core features of React is the useEffect hook,
+which allows developers to manage side effects in their components. In this article,
+we will explore what the useEffect hook is, how it works, and how to use it in a
+React app.
+
+### What is the useEffect hook?
 
 The useEffect hook is a function that allows you to perform side effects in your React components. Side effects refer to any code that affects something outside of the scope of the component, such as fetching data from an API, setting up event listeners, or updating the title of the page.
 
 The useEffect hook is a replacement for the lifecycle methods in React class components, such as `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount`. With the `useEffect` hook, you can manage all of these lifecycle methods in a single place, making your code more organized and easier to maintain.
 
-### How does the `useEffect` hook work?
+### How does the useEffect hook work?
 
 The `useEffect` hook takes two arguments: a _callback function_ and an _array of dependencies_. The callback function is where you define your side effect logic, and the dependencies array is where you specify any variables that your side effect depends on.
 
@@ -16,7 +21,7 @@ When the component mounts, React will call the callback function once. If there 
 
 Here's an example of using the `useEffect` hook to fetch data from an API:
 
-```jsx
+```javascript
 import { useEffect, useState } from "react";
 
 function MyComponent() {
@@ -43,5 +48,14 @@ function MyComponent() {
   );
 }
 ```
+
+In this example, we use the `useState` hook to initialize a state variable called `data` to `null`. We then use the `useEffect` hook to fetch data from an API using the fetch function. We pass an empty array as the second argument to useEffect, which means that the callback function will only be called once when the component mounts.
+
+When the API returns the data, we update the data state variable using the `setData` function. Finally, we render the data in a list, or display a loading message if the data is still being fetched.
+Conclusion
+
+The `useEffect` hook is a powerful feature of React that allows you to manage side effects in your components. It simplifies your code by providing a single place to manage all your side effects, and makes your app more efficient by only executing the side effects when necessary.
+
+By mastering the **useEffect** hook, you'll be able to build more complex and efficient React apps.
 
 </div>

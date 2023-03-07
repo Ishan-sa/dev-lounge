@@ -2,23 +2,6 @@ import { useState, useEffect } from "react";
 import Card1 from "../Card/Card";
 
 export default function Posts({ cardData }) {
-  // const cardData = [
-  //   {
-  //     id: 1,
-  //     topHeader: "Next.js / React",
-  //     title: "What is the useEffect Hook?",
-  //   },
-  //   {
-  //     id: 2,
-  //     topHeader: "Next.js",
-  //     title: "What are states in React?",
-  //   },
-  //   {
-  //     id: 3,
-  //     topHeader: "Next.js",
-  //     title: "Why use Next.js instead of CRA?",
-  //   },
-  // ];
   return (
     <>
       <div className="flex w-full flex-col">
