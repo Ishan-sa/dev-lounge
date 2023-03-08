@@ -42,6 +42,7 @@ export default function Nav({
     {
       name: "Articles",
       href: "/articles",
+      slug: `/articles/`,
     },
     {
       name: "Contact",
@@ -78,7 +79,10 @@ export default function Nav({
               <Navbar.Link
                 key={index}
                 href={item.href}
-                isActive={router.pathname === item.href ? true : false}
+                isActive={
+                  router.pathname === item.href ||
+                  (item.slug && router.pathname.startsWith(item.slug))
+                }
               >
                 {item.name}
               </Navbar.Link>
@@ -103,11 +107,6 @@ export default function Nav({
             </>
           )}
 
-          {/* <Navbar.Item>
-            <Button auto flat as={Link} href="#" color="primary">
-              Sign Up
-            </Button>
-          </Navbar.Item> */}
           <div className="block lg:hidden">
             <Navbar.Toggle aria-label="toggle navigation" />
           </div>
