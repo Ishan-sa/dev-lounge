@@ -14,7 +14,14 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>{CssBaseline.flush()}</Head>
+        <Head>
+          <link
+            rel="stylesheet"
+            href="https://unpkg.com/prism-themes/themes/prism-dracula.css"
+          ></link>
+
+          {CssBaseline.flush()}
+        </Head>
         <body>
           <Main />
           <NextScript />

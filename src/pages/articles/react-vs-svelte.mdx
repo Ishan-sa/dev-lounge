@@ -1,0 +1,190 @@
+<div className="flex flex-col px-8 max-w-[800px] m-auto gap-2 py-4">
+React and Svelte are two popular front-end web development frameworks that allow developers to create dynamic and responsive user interfaces. In this article, we'll compare the two frameworks and provide examples to demonstrate their differences.
+
+### React
+
+React is a JavaScript library for building user interfaces. It was developed by Facebook and has become one of the most popular front-end frameworks in recent years. React is known for its declarative programming style, which allows developers to write code that describes how the UI should look and behave.
+
+Let's start by creating a simple React app. First, we need to install the React library and create a new app using the following commands:
+
+```bash
+npx create-react-app my-app
+cd my-app
+npm start
+```
+
+This will create a new React app and start a development server. Now, let's create a simple component that displays a list of items.
+
+```jsx
+// src/components/List.js
+
+import React from "react";
+
+const List = ({ items }) => {
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={item.id}>{item.name}</li>
+      ))}
+    </ul>
+  );
+};
+export default List;
+```
+
+In this example, we created a List component that receives an array of items as a prop and renders them in an unordered list. We used the map() function to loop over the items and create a list item for each one.
+
+Now let's use the List component in our app.
+
+```jsx
+// src/App.js
+
+import React from "react";
+import List from "./components/List";
+
+const App = () => {
+  const items = [
+    { id: 1, name: "Item 1" },
+    { id: 2, name: "Item 2" },
+    { id: 3, name: "Item 3" },
+  ];
+
+  return (
+    <div>
+      <h1>My App</h1>
+      <List items={items} />
+    </div>
+  );
+};
+
+export default App;
+```
+
+In this example, we imported the List component and used it in our App component. We also passed an array of items as a prop to the List component.
+
+### Svelte
+
+Svelte is a front-end framework that was released in 2016. It is known for its small size and fast performance. Svelte takes a different approach to building user interfaces than React. Instead of using a virtual DOM, Svelte compiles your code into optimized vanilla JavaScript at build time.
+
+Let's create a simple Svelte app. First, we need to install the Svelte compiler and create a new app using the following commands:
+
+```bash
+npx degit sveltejs/template my-app
+cd my-app
+npm install
+npm run dev
+```
+
+This will create a new Svelte app and start a development server. Now, let's create a simple component that displays a list of items.
+
+```jsx
+<!-- src/components/List.svelte -->
+
+<script>
+  export let items;
+</script>
+
+<ul>
+  {#each items as item}
+    <li>{item.name}</li>
+  {/each}
+</ul>
+```
+
+In this example, we created a List component that receives an array of items as a prop and renders them in an unordered list. We used the each block to loop over the items and create a list item for each one.
+
+Now let's use the List component in our app.
+
+```jsx
+<!-- src/App.svelte -->
+
+<script>
+  import List from './components/List.svelte';
+
+  const items = [
+    { id: 1, name: 'Item 1' },
+    { id: 2, name: 'Item 2' },
+    { id: 3, name: 'Item 3' },
+    { id: 4, name: 'Item 4' },
+    { id: 5, name: 'Item 5' }
+  ];
+</script>
+
+<main>
+  <h1>List Component Example (Svelte)</h1>
+  <List items={items} />
+</main>
+
+```
+
+In this example, we imported the List component and used it in our App component. We also passed an array of items as a prop to the List component.
+
+### Comparing React and Svelte
+
+Now that we have created a simple app using both React and Svelte, let's compare the two frameworks.
+
+#### Syntax
+
+The syntax for React and Svelte is quite different. React uses JSX, which allows you to write HTML-like syntax within your JavaScript code. Svelte, on the other hand, uses a template-based syntax similar to Vue.js.
+
+#### Performance
+
+Svelte is known for its performance because it compiles your code into optimized vanilla JavaScript at build time. This means that Svelte apps are faster and use less memory than React apps. However, React's virtual DOM can be more efficient in some cases because it only updates the parts of the DOM that have changed.
+
+#### Learning Curve
+
+React has a steeper learning curve than Svelte because it requires you to learn a lot of concepts like JSX, props, state, and lifecycle methods. Svelte, on the other hand, has a simpler API and requires less setup.
+
+#### Size
+
+React is a larger library than Svelte, which means that React apps can be larger than Svelte apps. However, this difference in size is negligible for most applications.
+
+#### Code Examples
+
+In our examples, we saw that both React and Svelte can be used to create a list component. However, the syntax and API for each framework is quite different.
+
+##### React Example
+
+```jsx
+// src/components/List.js
+
+import React from "react";
+
+const List = ({ items }) => {
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={item.id}>{item.name}</li>
+      ))}
+    </ul>
+  );
+};
+
+export default List;
+```
+
+##### Svelte Example
+
+```jsx
+<!-- src/components/List.svelte -->
+
+<script>
+  export let items;
+</script>
+
+<ul>
+  {#each items as item}
+  <li>{item.name}</li>
+  {/each}
+</ul>
+```
+
+As you can see, the syntax for React and Svelte is quite different.
+
+## Conclusion
+
+In conclusion, React and Svelte are both great frameworks for building user interfaces. React is a more mature and widely used framework, but Svelte is a newer and faster alternative. The choice between React and Svelte ultimately depends on your preferences and project requirements.
+
+I hope this article has helped you understand the differences between React and Svelte. If you're interested in learning more about these frameworks, I encourage you to check out their official documentation and explore some of the many resources available online.
+
+</div>
