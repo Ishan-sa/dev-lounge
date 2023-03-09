@@ -10,7 +10,7 @@ import Link from "next/link";
 export default function Home({ cards }) {
   const imageArr = ["/blog-cards/useeffect-1.png", "/blog-cards/next-cra.png"];
   const cardLinks = [
-    "useeffect-react",
+    "/useeffect-react",
     "/nextjs-cra",
     "/tailwind-or-styledcomponents",
     "/react-vs-svelte",

@@ -25,6 +25,7 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }) {
+  // const { data: session } = useSession();
   return (
     <>
       <SessionProvider session={session}>
@@ -38,9 +39,9 @@ export default function App({
         >
           <NextUIProvider>
             <Nav
-              onSignIn={() => signIn()}
-              onSignOut={() => signOut()}
-              onSignUp={() => signIn()}
+            // onSignIn={() => signIn()}
+            // onSignOut={() => signOut()}
+            // onSignUp={() => signIn()}
             />
             <MDXProvider components={MDXComponents}>
               <Component {...pageProps} />
