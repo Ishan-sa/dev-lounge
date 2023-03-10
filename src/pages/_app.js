@@ -38,11 +38,7 @@ export default function App({
           }}
         >
           <NextUIProvider>
-            <Nav
-            // onSignIn={() => signIn()}
-            // onSignOut={() => signOut()}
-            // onSignUp={() => signIn()}
-            />
+            <Nav />
             <MDXProvider components={MDXComponents}>
               <Component {...pageProps} />
             </MDXProvider>

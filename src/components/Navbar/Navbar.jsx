@@ -11,16 +11,12 @@ import { Layout } from "./Layout.js";
 import { AcmeLogo } from "./AcmeLogo.js";
 import { useTheme as useNextTheme } from "next-themes";
 import { Switch } from "@nextui-org/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router.js";
 import { Avatar } from "@nextui-org/react";
 
-export default function Nav({
-  onSignIn = () => {},
-  onSignOut = () => {},
-  onSignUp = () => {},
-}) {
+export default function Nav() {
   const { setTheme } = useNextTheme();
   const { isDark, type } = useTheme();
   const [variant, setVariant] = useState("default");
