@@ -1,4 +1,4 @@
-import React from "react";
+import Link from "next/link";
 
 export default function test() {
   return (
@@ -13,7 +13,7 @@ export default function test() {
             <div class="grid gap-6">
               Repeat this card for each post
               <div class="bg-white overflow-hidden shadow rounded-lg">
-                <a
+                <Link
                   href="#"
                   class="block hover:bg-gray-50 transition duration-150 ease-in-out"
                 >
@@ -40,7 +40,7 @@ export default function test() {
                       </div>
                     </div>
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -52,12 +52,12 @@ export default function test() {
                 <ul class="divide-y divide-gray-200">
                   Repeat this item for each recent post
                   <li class="py-4">
-                    <a
+                    <Link
                       href="#"
                       class="text-base leading-6 font-medium text-gray-900 hover:text-gray-700"
                     >
                       Recent Post Title
-                    </a>
+                    </Link>
                     <div class="text-sm leading-5 text-gray-500">Date</div>
                   </li>
                 </ul>
@@ -69,13 +69,13 @@ export default function test() {
                 <ul class="divide-y divide-gray-200">
                   Repeat this item for each category
                   <li class="py-4">
-                    <a
+                    <Link
                       href="#"
                       class="text-base leading-6 font-medium
                 text-gray-900 hover:text-gray-700"
                     >
                       Category Name
-                    </a>
+                    </Link>
                     <div class="text-sm leading-5 text-gray-500">
                       Number of Posts
                     </div>

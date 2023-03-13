@@ -99,7 +99,7 @@ export default function Nav() {
         <Navbar.Content
           enableCursorHighlight
           hideIn="xs"
-          variant="underline"
+          variant="highlight-rounded"
           className="hidden lg:flex"
         >
           {menuLinkContent.map((item, index) => (

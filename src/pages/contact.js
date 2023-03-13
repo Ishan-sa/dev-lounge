@@ -1,5 +1,5 @@
 import { Button, Input, Textarea } from "@nextui-org/react";
-import React from "react";
+import Link from "next/link";
 
 export default function contact() {
   return (
@@ -79,7 +79,7 @@ export default function contact() {
                 Email us
               </h3>
               <p className="text-gray-500 leading-6">
-                <a href="mailto:hello@example.com">hello@example.com</a>
+                <Link href="mailto:hello@example.com">hello@example.com</Link>
               </p>
             </div>
           </div>
