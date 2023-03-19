@@ -103,18 +103,16 @@ export default function Nav() {
           className="hidden lg:flex"
         >
           {menuLinkContent.map((item, index) => (
-            <>
-              <Navbar.Link
-                key={index}
-                href={item.href}
-                isActive={
-                  router.pathname === item.href ||
-                  (item.slug && router.pathname.startsWith(item.slug))
-                }
-              >
-                {item.name}
-              </Navbar.Link>
-            </>
+            <Navbar.Link
+              key={index}
+              href={item.href}
+              isActive={
+                router.pathname === item.href ||
+                (item.slug && router.pathname.startsWith(item.slug))
+              }
+            >
+              {item.name}
+            </Navbar.Link>
           ))}
         </Navbar.Content>
         <Navbar.Content>

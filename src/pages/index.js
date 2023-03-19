@@ -34,9 +34,8 @@ export default function Home({ cards }) {
             subtitle="LATEST FROM THE BLOG"
             cardData={cards.map((card, index) => {
               return (
-                <Link href={`/articles/${cardLinks[index]}`}>
+                <Link href={`/articles/${cardLinks[index]}`} key={index}>
                   <Card1
-                    key={index}
                     topHeader={card.topHeader}
                     title={card.title}
                     image={imageArr[index]}
