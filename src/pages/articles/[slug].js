@@ -1,40 +1,44 @@
-// import fs from "fs";
-// import path from "path";
-// import matter from "gray-matter";
-// import remark from "remark";
-// import html from "remark-html";
+import fs from "fs";
+import matter from "gray-matter";
+import { MDXRemote } from "next-mdx-remote";
+import { serialize } from "next-mdx-remote/serialize";
 
-// export default function Post({ metadata, content }) {
-//   return (
-//     <div>
-//       <h1>{metadata.title}</h1>
-//       <p>{metadata.date}</p>
-//       <div dangerouslySetInnerHTML={{ __html: content }} />
-//     </div>
-//   );
-// }
+export async function getStaticPaths() {
+  const options = {
+    encoding: "utf-8",
+  };
+  const posts = fs.readdirSync("articles", options);
+  const paths = posts.map((post) => ({
+    params: {
+      slug: post.replace(/\.mdx$/, ""),
+    },
+  }));
+  return {
+    paths,
+    fallback: false,
+  };
+}
 
-// export async function getServerSideProps({ params }) {
-//   const { slug } = params;
+export async function getStaticProps({ params }) {
+  const post = await import(`../articles/${params.slug}.mdx`);
+  const { content, data } = matter(post.default);
 
-//   const files = fs.readdirSync(path.join(process.cwd(), "pages", "articles"));
-//   const postFile = files.find((file) => file.startsWith(slug));
+  const mdxSource = await serialize(content, {
+    // options
+  });
 
-//   const postFilePath = path.join(process.cwd(), "pages", "articles", postFile);
-//   const fileContents = fs.readFileSync(postFilePath, "utf8");
-//   const { data, content } = matter(fileContents);
-//   const htmlContent = await remark().use(html).process(content);
+  return {
+    props: {
+      source: mdxSource,
+      frontMatter: data,
+    },
+  };
+}
 
-//   return {
-//     props: {
-//       metadata: data,
-//       content: htmlContent.toString(),
-//     },
-//   };
-// }
-
-import React from "react";
-
-export default function slug() {
-  return <div>hi</div>;
+export default function Post({ source, frontMatter }) {
+  return (
+    <>
+      <MDXRemote {...source} />
+    </>
+  );
 }
