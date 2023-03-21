@@ -155,7 +155,7 @@ export default function Nav() {
                 css={{
                   minWidth: "100%",
                 }}
-                href={item.href}
+                onPress={() => router.push(item.href)}
               >
                 {item.name}
               </Link>
