@@ -63,11 +63,7 @@ export default function Home({ cards }) {
 }
 
 export async function getServerSideProps() {
-  const blogCardData = await prisma.blogCard.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+  const blogCardData = await prisma.blogCard.findMany();
   return {
     props: {
       cards: JSON.parse(JSON.stringify(blogCardData)),
