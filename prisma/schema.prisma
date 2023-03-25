@@ -33,4 +33,7 @@ model BlogCard {
   updatedAt DateTime @updatedAt
   topHeader String   @db.Text
   title     String
+  slug      String   @unique
+  image     String
+  type      String
 }

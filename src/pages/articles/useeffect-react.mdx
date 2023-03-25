@@ -1,4 +1,4 @@
-import Comments from "../../components/Comments/Comments";
+import Layout from "@/components/MDXLayout";
 
 <div className="flex flex-col px-8 max-w-[800px] m-auto gap-2">
 <centerDiv className="flex text-center mt-8 font-bold text-xl">React</centerDiv>
@@ -59,6 +59,6 @@ The `useEffect` hook is a powerful feature of React that allows you to manage si
 
 By mastering the **useEffect** hook, you'll be able to build more complex and efficient React apps.
 
-<Comments />
-
 </div>
+
+export default ({ children }) => <Layout>{children}</Layout>;

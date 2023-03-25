@@ -1,28 +1,13 @@
 import React from "react";
-import {
-  Navbar,
-  Button,
-  Link,
-  Text,
-  useTheme,
-  Loading,
-} from "@nextui-org/react";
+import { Navbar, Button, Link, Text, Loading } from "@nextui-org/react";
 import { Layout } from "./Layout.js";
 import { AcmeLogo } from "./AcmeLogo.js";
-import { useTheme as useNextTheme } from "next-themes";
-import { Switch } from "@nextui-org/react";
 import { useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router.js";
 import { Avatar } from "@nextui-org/react";
 
 export default function Nav() {
-  const { setTheme } = useNextTheme();
-  const { isDark, type } = useTheme();
-  const [variant, setVariant] = useState("default");
-  const [activeColor, setActiveColor] = useState("primary");
-  const [handleSignInOut, setHandleSignInOut] = useState(false);
-
   const [btnLoading, setBtnLoading] = useState(false);
   const [btnText, setBtnText] = useState("Sign In");
   const [signOutBtnText, setSignOutBtnText] = useState("Sign Out");
@@ -38,8 +23,6 @@ export default function Nav() {
     "highlight-solid-rounded",
     "underline-rounded",
   ];
-
-  const collapseItems = ["Posts", "Contact", "About"];
 
   const menuLinkContent = [
     {
@@ -99,22 +82,20 @@ export default function Nav() {
         <Navbar.Content
           enableCursorHighlight
           hideIn="xs"
-          variant="underline"
+          variant="highlight-rounded"
           className="hidden lg:flex"
         >
           {menuLinkContent.map((item, index) => (
-            <>
-              <Navbar.Link
-                key={index}
-                href={item.href}
-                isActive={
-                  router.pathname === item.href ||
-                  (item.slug && router.pathname.startsWith(item.slug))
-                }
-              >
-                {item.name}
-              </Navbar.Link>
-            </>
+            <Navbar.Link
+              onPress={() => router.push(item.href)}
+              key={index}
+              isActive={
+                router.pathname === item.href ||
+                (item.slug && router.pathname.startsWith(item.slug))
+              }
+            >
+              {item.name}
+            </Navbar.Link>
           ))}
         </Navbar.Content>
         <Navbar.Content>
@@ -167,16 +148,16 @@ export default function Nav() {
         </Navbar.Content>
 
         <Navbar.Collapse className="block lg:hidden">
-          {collapseItems.map((item, index) => (
+          {menuLinkContent.map((item, index) => (
             <Navbar.CollapseItem key={index}>
               <Link
                 color="inherit"
                 css={{
                   minWidth: "100%",
                 }}
-                href="#"
+                onPress={() => router.push(item.href)}
               >
-                {item}
+                {item.name}
               </Link>
             </Navbar.CollapseItem>
           ))}

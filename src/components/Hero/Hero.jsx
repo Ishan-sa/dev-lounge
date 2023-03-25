@@ -21,7 +21,7 @@ export default function Hero() {
           <AiFillLinkedin className="text-4xl" />
         </div>
       </div>
-      <div className="flex w-screen mt-4 lg:mt-0">
+      <div className="flex mt-4 lg:mt-0">
         <Image
           src="/hero/code_1.png"
           height={1200}

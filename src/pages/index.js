@@ -4,6 +4,7 @@ import Posts from "@/components/Posts/Posts";
 import Head from "next/head";
 import { prisma } from "../../server/db/client";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 // import SyntaxHighlighter from "react-syntax-highlighter";
 
@@ -15,6 +16,8 @@ export default function Home({ cards }) {
     "/tailwind-or-styledcomponents",
     "/react-vs-svelte",
   ];
+
+  const router = useRouter();
 
   return (
     <>
@@ -34,14 +37,22 @@ export default function Home({ cards }) {
             subtitle="LATEST FROM THE BLOG"
             cardData={cards.map((card, index) => {
               return (
-                <Link href={`/articles/${cardLinks[index]}`}>
-                  <Card1
-                    key={index}
-                    topHeader={card.topHeader}
-                    title={card.title}
-                    image={imageArr[index]}
-                  />
-                </Link>
+                // <Link href={`/articles/${cardLinks[index]}`} key={index}>
+                //   <Card1
+                //     topHeader={card.topHeader}
+                //     title={card.title}
+                //     image={imageArr[index]}
+                //   />
+                // </Link>
+
+                <Card1
+                  onClick={() => router.push(`/articles/${cardLinks[index]}`)}
+                  key={index}
+                  // onClick={() => console.log("clicked")}
+                  topHeader={card.topHeader}
+                  title={card.title}
+                  image={imageArr[index]}
+                />
               );
             })}
           />
