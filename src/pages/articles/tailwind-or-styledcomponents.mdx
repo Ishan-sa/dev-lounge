@@ -1,3 +1,5 @@
+import Layout from "@/components/Layout";
+
 <div className="flex flex-col px-8 max-w-[800px] m-auto gap-2 py-4">
     ## Tailwind CSS vs Styled Components
 ### Introduction
@@ -66,3 +68,4 @@ Tailwind CSS has a shorter learning curve because it provides pre-defined classe
 Both Tailwind CSS and Styled Components are powerful tools for building user interfaces. The choice between them depends on personal preferences and the specific needs of the project. If you prefer a utility-first approach and custom components with props, Tailwind CSS is a great choice. If you prefer writing CSS code in JavaScript files and dynamic styling, Styled Components may be a better option.
 
 </div>
+export default ({ children }) => <Layout>{children}</Layout>;

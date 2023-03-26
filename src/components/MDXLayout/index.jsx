@@ -20,7 +20,6 @@ export default function Layout({ children }) {
   return (
     <div className="flex flex-col px-8 max-w-[800px] m-auto">
       {children}
-      {/* <h1>Comment form here:</h1> */}
       <Comments />
     </div>
   );

@@ -37,10 +37,11 @@ export default function articles({ cards }) {
 }
 
 export async function getServerSideProps() {
-  const blogCardData = await prisma.blogCard.findMany();
-  return {
-    props: {
-      cards: JSON.parse(JSON.stringify(blogCardData)),
-    },
-  };
+  const post = await prisma.post.findMany();
+
+  // return {
+  //   props: {
+  //     cards: JSON.parse(JSON.stringify(post)),
+  //   },
+  // };
 }
