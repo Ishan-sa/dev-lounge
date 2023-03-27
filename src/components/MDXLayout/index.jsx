@@ -1,26 +1,21 @@
+import useSWR from "swr";
 import { useRouter } from "next/router";
-import Comments from "../Comments/Comments";
+
+import CommentsSection from "../CommentsSection/CommentsSection";
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
 export default function Layout({ children }) {
   const router = useRouter();
   const pathParams = router.pathname;
   const slug = pathParams.split("/").pop();
 
-  //   useEffect(() => {
-  //lad all coments for post with slug slug
-  //   });
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // post('/api/savecomment', {
-    //     comment: "yo",
-    //     postslug: slug
-    // })
-  };
+  const { data: post } = useSWR(`/api/post?slug=${slug}`, fetcher);
 
   return (
     <div className="flex flex-col px-8 max-w-[800px] m-auto">
+      {post && <CommentsSection postid={post.id} />}
       {children}
-      <Comments />
     </div>
   );
 }
