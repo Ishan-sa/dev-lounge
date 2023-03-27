@@ -6,8 +6,6 @@ export default function Comment({ content }) {
 
   return (
     <div className="border-l-8 px-4">
-      {/* <div className="font-bold mt-2">{title}</div>
-      <p className="m-4">{content}</p> */}
       <div className="flex gap-2 items-center">
         <div>
           <Image
@@ -19,7 +17,6 @@ export default function Comment({ content }) {
         </div>
         <div>
           <p className="font-semibold text-gray-800">{session?.user?.name}</p>
-          {/* <p className="font-semibold text-gray-800">{title}</p> */}
           <p>{content}</p>
         </div>
       </div>
