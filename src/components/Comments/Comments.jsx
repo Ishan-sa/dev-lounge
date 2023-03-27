@@ -4,12 +4,28 @@ export default function Comments({
   handleTitleChange = (e) => {},
   handleCommentChange = (e) => {},
 }) {
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // post('/api/savecomment', {
     //     comment: "yo",
     //     postslug: slug
     // })
+    const res = await fetch("/api/comments", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        postId,
+        title,
+        content,
+      }),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      console.log(data);
+    } else {
+      const error = await res.json();
+      throw new Error(error.message);
+    }
   };
 
   return (

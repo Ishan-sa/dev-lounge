@@ -17,11 +17,14 @@ export default async function handler(req, res) {
       // get the topHeader and title from the request body
       const { topHeader, title } = req.body;
       //   use prisma to create a new post using that data
+      let slug = title.toLowerCase().replace(/ /g, "-");
+      slug =
+        slug.endsWith("-") || slug.endsWith("?") ? slug.slice(0, -1) : slug;
       const newPost = await prisma.post.create({
         data: {
           topHeader,
           title,
-          slug: title.toLowerCase().replace(/ /g, "-"),
+          slug: slug,
           image: "/blog-cards/useeffect-1.png",
           type: "article",
         },
