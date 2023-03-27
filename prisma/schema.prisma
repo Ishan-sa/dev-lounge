@@ -16,8 +16,8 @@ model Comment {
   updatedAt DateTime @updatedAt
   title     String
   content   String?  @db.Text
-  postId    Int
   post      Post     @relation(fields: [postId], references: [id])
+  postId    Int
 }
 
 model Post {
@@ -30,5 +30,4 @@ model Post {
   image     String
   type      String
   comments  Comment[]
-  postId    Int
 }
