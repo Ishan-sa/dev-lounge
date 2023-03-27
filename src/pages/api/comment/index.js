@@ -1,4 +1,4 @@
-import { prisma } from "$db/client";
+import { prisma } from "../../../../server/db/client";
 
 export default async function handler(req, res) {
   const { method, query } = req;
@@ -45,3 +45,6 @@ export default async function handler(req, res) {
       res.status(405).end(`Method ${method} Not Allowed`);
   }
 }
+
+// how to upload new mdx files into a built and deployed project
+// i.e: writing new pages for your blog and uploading those pages without having to rebuild and redeploy the entire app
