@@ -1,6 +1,11 @@
 import { prisma } from "../../../../server/db/client";
+import { getServerSession } from "next-auth";
 
 export default async function handler(req, res) {
+  // const session = await getServerSession();
+
+  // console.log("session", session);
+
   const { method, query } = req;
 
   switch (method) {
@@ -23,6 +28,11 @@ export default async function handler(req, res) {
       break;
 
     case "POST":
+      // if (!session) {
+      //   res.status(401).end("Unauthorized");
+      //   return;
+      // }
+
       const { title, content, postid } = req.body;
       const newComment = await prisma.comment.create({
         data: {

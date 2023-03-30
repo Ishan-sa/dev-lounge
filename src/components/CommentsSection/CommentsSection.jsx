@@ -1,7 +1,6 @@
 import { Button, Input, Textarea } from "@nextui-org/react";
 import useSWR from "swr";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
 
 import Comment from "../Comments/Comment";
 
