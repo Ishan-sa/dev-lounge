@@ -58,6 +58,7 @@ export default async function handler(req, res) {
       break;
 
     case "DELETE":
+      const { id } = req.body;
       const deletedUser = await prisma.user.delete({
         where: {
           id: Number.parseInt(query.id),
