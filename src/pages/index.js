@@ -3,20 +3,9 @@ import Hero from "@/components/Hero/Hero";
 import Posts from "@/components/Posts/Posts";
 import Head from "next/head";
 import { prisma } from "../../server/db/client";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
-// import SyntaxHighlighter from "react-syntax-highlighter";
-
-export default function Home({ cards }) {
-  const imageArr = ["/blog-cards/useeffect-1.png", "/blog-cards/next-cra.png"];
-  const cardLinks = [
-    "/useeffect-react",
-    "/nextjs-cra",
-    "/tailwind-or-styledcomponents",
-    "/react-vs-svelte",
-  ];
-
+export default function Home({ posts }) {
   const router = useRouter();
 
   return (
@@ -35,23 +24,14 @@ export default function Home({ cards }) {
           <Posts
             title="Coding Chronicles: Tales from the Keyboard"
             subtitle="LATEST FROM THE BLOG"
-            cardData={cards.map((card, index) => {
+            cardData={posts.map((post, index) => {
               return (
-                // <Link href={`/articles/${cardLinks[index]}`} key={index}>
-                //   <Card1
-                //     topHeader={card.topHeader}
-                //     title={card.title}
-                //     image={imageArr[index]}
-                //   />
-                // </Link>
-
                 <Card1
-                  onClick={() => router.push(`/articles/${cardLinks[index]}`)}
+                  onClick={() => router.push(`/articles/${post.slug}`)}
                   key={index}
-                  // onClick={() => console.log("clicked")}
-                  topHeader={card.topHeader}
-                  title={card.title}
-                  image={imageArr[index]}
+                  topHeader={post.topHeader}
+                  title={post.title}
+                  image={post.image}
                 />
               );
             })}
@@ -63,10 +43,15 @@ export default function Home({ cards }) {
 }
 
 export async function getServerSideProps() {
-  const blogCardData = await prisma.blogCard.findMany();
+  const post = await prisma.post.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: 4,
+  });
   return {
     props: {
-      cards: JSON.parse(JSON.stringify(blogCardData)),
+      posts: JSON.parse(JSON.stringify(post)),
     },
   };
 }

@@ -1,3 +1,5 @@
+import Layout from "@/components/MDXLayout";
+
 <div className="flex flex-col px-8 max-w-[800px] m-auto gap-2 py-4">
 React and Svelte are two popular front-end web development frameworks that allow developers to create dynamic and responsive user interfaces. In this article, we'll compare the two frameworks and provide examples to demonstrate their differences.
 
@@ -188,3 +190,4 @@ In conclusion, React and Svelte are both great frameworks for building user inte
 I hope this article has helped you understand the differences between React and Svelte. If you're interested in learning more about these frameworks, I encourage you to check out their official documentation and explore some of the many resources available online.
 
 </div>
+export default ({ children }) => <Layout>{children}</Layout>;

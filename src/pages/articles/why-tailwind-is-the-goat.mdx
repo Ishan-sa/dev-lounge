@@ -1,0 +1,81 @@
+import Layout from "@/components/MDXLayout";
+
+<div className="flex flex-col px-8 max-w-[800px] m-auto gap-2">
+<centerDiv className="flex text-center mt-8 font-bold text-xl">
+
+# Why Tailwind CSS is the GOAT?
+
+</centerDiv>
+
+In recent years, the world of web development has seen an explosion in the number of CSS frameworks available. Among them, Tailwind CSS has emerged as a favorite of developers around the world. In this article, we’ll explore why Tailwind CSS is the Greatest of All Time (GOAT) in the world of CSS frameworks.
+
+### What is Tailwind CSS?
+
+Tailwind CSS is a utility-first CSS framework that provides pre-defined classes to quickly style HTML elements. This means that instead of writing custom CSS code for every element on your page, you can use pre-existing classes to apply styles.
+
+### Speeds up the development process
+
+One of the biggest advantages of using Tailwind CSS is that it dramatically speeds up the development process. Developers can easily create complex designs without spending time writing custom CSS. Instead, they can focus on the functionality and content of their website or application.
+
+Here's an example of how to add a background color to a div element using Tailwind CSS:
+
+```jsx
+<div class="bg-blue-500">This div has a blue background color.</div>
+```
+
+In this example, we're using the bg-blue-500 class to apply a blue background color to the div. The bg prefix indicates that we're applying a background color, and the blue-500 suffix indicates the shade of blue we want to use. The 500 refers to the shade's saturation and lightness levels on a scale of 0-1000.
+
+### Highly Customizable
+
+Tailwind CSS is also highly customizable. Developers can configure the framework to suit their specific needs, adding or removing classes as required. For example, the framework comes with a range of pre-defined colors, but developers can easily add their own color palette using configuration files.
+
+Here's an example of how to customize the colors used by Tailwind CSS:
+
+```jsx
+// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        "custom-blue": "#1E40AF",
+        "custom-yellow": "#F59E0B",
+      },
+    },
+  },
+  variants: {},
+  plugins: [],
+};
+```
+
+In this example, we're adding two custom colors, custom-blue and custom-yellow, to Tailwind CSS. These colors can now be used in the same way as the pre-defined colors.
+
+### Responsive Design
+
+Tailwind CSS makes it easy to apply responsive styles to an element. With Tailwind CSS, you can easily change the styles of an element based on the size of the screen. Here's an example of how to hide an element on mobile devices:
+
+```jsx
+<div class="hidden md:block">This div is hidden on mobile devices.</div>
+```
+
+In this example, we're using the hidden class to hide the element by default. Then, we're using the md:block class to show the element on screens that are medium-sized and up.
+
+### Accessibility
+
+Tailwind CSS is also designed with accessibility in mind. The framework includes pre-defined classes that follow best practices for accessibility, such as using sr-only to hide elements visually but keep them available to screen readers.
+
+Here's an example of how to use the sr-only class to make an element accessible to screen readers:
+
+```jsx
+<label for="email" class="sr-only">Email</label>
+<input type="email" id="email" name="email" placeholder="Email" class="bg-gray-100 rounded-lg p-2">
+```
+
+In this example, we're using the sr-only class to visually hide the label element but keep it available to screen readers.
+
+### Conclusion
+
+In conclusion, Tailwind CSS is a powerful and flexible utility-first CSS framework that speeds up the development process, is highly customizable, and provides excellent support for responsive design and accessibility. Its comprehensive set of pre-defined classes and extensive documentation make it easy to use and learn for developers of all skill levels. If you’re looking to streamline your CSS workflow and increase your productivity, Tailwind CSS is definitely the GOAT in the world of CSS frameworks.
+
+</div>
+
+export default ({ children }) => <Layout>{children}</Layout>;

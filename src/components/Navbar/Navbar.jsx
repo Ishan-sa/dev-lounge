@@ -12,18 +12,6 @@ export default function Nav() {
   const [btnText, setBtnText] = useState("Sign In");
   const [signOutBtnText, setSignOutBtnText] = useState("Sign Out");
 
-  //   const { isDark } = useTheme();
-
-  const variants = [
-    "default",
-    "highlight",
-    "highlight-solid",
-    "underline",
-    "highlight-rounded",
-    "highlight-solid-rounded",
-    "underline-rounded",
-  ];
-
   const menuLinkContent = [
     {
       name: "Home",
@@ -87,7 +75,7 @@ export default function Nav() {
         >
           {menuLinkContent.map((item, index) => (
             <Navbar.Link
-              onPress={() => router.push(item.href)}
+              onClick={() => router.push(item.href)}
               key={index}
               isActive={
                 router.pathname === item.href ||
@@ -101,9 +89,6 @@ export default function Nav() {
         <Navbar.Content>
           {session ? (
             <>
-              {/* <Navbar.Link color="primary" onClick={() => handleSignOut()}>
-                Sign Out
-              </Navbar.Link> */}
               <Button
                 color="primary"
                 onClick={() => handleSignOut()}
@@ -119,7 +104,7 @@ export default function Nav() {
               <Button
                 color="primary"
                 onClick={() => handleSignIn()}
-                className="bg-blue-500 hover:bg-blue-700 text-white"
+                className="bg-[#a6caff7f] hover:bg-[#5a9cff8d] text-[#3284ff]"
                 auto
               >
                 {btnLoading && <Loading color="currentColor" size="sm" />}
@@ -155,7 +140,7 @@ export default function Nav() {
                 css={{
                   minWidth: "100%",
                 }}
-                onPress={() => router.push(item.href)}
+                onClick={() => router.push(item.href)}
               >
                 {item.name}
               </Link>
