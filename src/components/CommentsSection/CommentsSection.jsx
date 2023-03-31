@@ -50,7 +50,7 @@ export default function CommentsSection({ post, onNewComment }) {
                 key={id}
                 content={content}
                 user={user}
-                onDelete={handleDelete}
+                onDelete={() => handleDelete(id)}
               />
             ))
           : "No comments yet :("}
