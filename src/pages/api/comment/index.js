@@ -58,13 +58,85 @@ export default async function handler(req, res) {
       break;
 
     case "DELETE":
-      const { id } = req.body;
-      const deletedUser = await prisma.user.delete({
-        where: {
-          id: Number.parseInt(query.id),
-        },
-      });
-      res.status(200).json(deletedUser);
+      if (session) {
+        const commentId = Number.parseInt(query.id);
+        const userId = session.user.id;
+
+        const comment = await prisma.comment.findUnique({
+          where: {
+            id: commentId,
+          },
+          select: {
+            id: true,
+            userId: true,
+          },
+        });
+
+        if (!comment) {
+          res.status(404).end(`Comment ${commentId} not found`);
+          return;
+        }
+
+        if (comment.userId !== userId) {
+          res.status(403).end("Forbidden");
+          return;
+        }
+
+        const deletedComment = await prisma.comment.delete({
+          where: {
+            id: commentId,
+          },
+        });
+
+        res.status(200).json(deletedComment);
+      } else {
+        res.status(401).end("Unauthorized");
+      }
+      break;
+
+    case "PUT":
+      if (session) {
+        const { content } = req.body;
+        const commentId = Number.parseInt(query.id);
+        const userId = session.user.id;
+
+        const comment = await prisma.comment.findUnique({
+          where: {
+            id: commentId,
+          },
+          select: {
+            id: true,
+            userId: true,
+          },
+        });
+
+        if (!comment) {
+          res.status(404).end(`Comment ${commentId} not found`);
+          return;
+        }
+
+        if (comment.userId !== userId) {
+          res.status(403).end("Forbidden");
+          return;
+        }
+
+        const updatedComment = await prisma.comment.update({
+          where: {
+            id: commentId,
+          },
+          data: {
+            content,
+          },
+          include: {
+            post: true,
+            user: true,
+          },
+        });
+
+        res.status(200).json(updatedComment);
+      } else {
+        res.status(401).end("Unauthorized");
+      }
       break;
 
     default:
