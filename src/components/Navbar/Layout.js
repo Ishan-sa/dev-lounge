@@ -1,4 +1,3 @@
-import { Content } from "./Content.js";
 import { Box } from "./Box.js";
 
 export const Layout = ({ children }) => (
@@ -8,6 +7,5 @@ export const Layout = ({ children }) => (
     }}
   >
     {children}
-    {/* <Content /> */}
   </Box>
 );
