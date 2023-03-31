@@ -1,15 +1,18 @@
 import { Button, Textarea } from "@nextui-org/react";
 import { useSession, signIn } from "next-auth/react";
-import { useRouter } from "next/router";
-import { useState } from "react";
 import axios from "axios";
-
+import useSWR, { mutate } from "swr";
+import { useState } from "react";
 import Comment from "../Comments/Comment";
+import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 
 export default function CommentsSection({ post, onNewComment }) {
-  const router = useRouter();
   const { data: session } = useSession();
+  const [deletingCommentId, setDeletingCommentId] = useState(null);
   const showForm = session;
+
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  const { data: comments } = useSWR(`/api/comment?postId=${post.id}`, fetcher);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,11 +35,28 @@ export default function CommentsSection({ post, onNewComment }) {
   };
 
   async function handleDelete(id) {
+    if (!session) {
+      alert("You need to be signed in to delete a comment.");
+      return;
+    }
+
+    setDeletingCommentId(id);
+
     try {
       await axios.delete(`/api/comment/${id}`);
       onNewComment();
+
+      mutate(`/api/comment?postId=${post.id}`, (cachedData) => {
+        return cachedData.filter((comment) => comment.id !== id);
+      });
     } catch (error) {
+      setDeletingCommentId(null);
       console.log(error);
+      return <div>Error loading comments</div>;
+    }
+
+    if (!comments) {
+      return <div>Loading comments...</div>;
     }
   }
 
@@ -46,12 +66,27 @@ export default function CommentsSection({ post, onNewComment }) {
         <h1 className="text-xl font-bold mb-2">Comments</h1>
         {post.comments?.length
           ? post.comments.map(({ id, content, user }) => (
-              <Comment
-                key={id}
-                content={content}
-                user={user}
-                onDelete={() => handleDelete(id)}
-              />
+              <div key={id}>
+                <Comment
+                  content={content}
+                  user={user}
+                  deleteBtn={
+                    session &&
+                    user.id === session.user.id && (
+                      <>
+                        <AiFillDelete
+                          onClick={() => handleDelete(id)}
+                          className="cursor-pointer text-red-500 hover:text-red-700 text-2xl"
+                        />
+                        <AiFillEdit
+                          className="cursor-pointer text-blue-500 hover:text-blue-700 text-2xl"
+                          onClick={() => console.log("edit")}
+                        />
+                      </>
+                    )
+                  }
+                />
+              </div>
             ))
           : "No comments yet :("}
         {showForm ? (
