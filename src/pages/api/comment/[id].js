@@ -60,32 +60,12 @@ export default async function handler(req, res) {
       break;
 
     case "DELETE":
-      if (session) {
-        const userId = session.user.id;
-
-        const deletedComment = await prisma.comment.delete({
-          where: {
-            id: Number.parseInt(commentId),
-          },
-          include: {
-            post: true,
-            user: true,
-          },
-        });
-        if (!deletedComment) {
-          res.status(404).end(`Comment with ID ${commentId} not found`);
-        } else if (deletedComment.userId !== userId) {
-          res
-            .status(403)
-            .end(
-              `User with ID ${userId} is not authorized to delete comment with ID ${commentId}`
-            );
-        } else {
-          res.status(204).end();
-        }
-      } else {
-        res.status(401).end("Unauthorized");
-      }
+      const deletedComment = await prisma.comment.delete({
+        where: {
+          id: Number.parseInt(query.id),
+        },
+      });
+      res.status(200).json(deletedComment);
       break;
 
     default:

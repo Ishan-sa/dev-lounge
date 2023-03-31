@@ -1,9 +1,8 @@
 import Image from "next/image";
-import { AiFillEdit } from "react-icons/ai";
+import { AiFillDelete } from "react-icons/ai";
 
-export default function Comment({ content, user, authenticatedUser }) {
+export default function Comment({ content, user, onDelete = () => {} }) {
   const { image: userImage, name: userName } = user;
-  const isOwner = authenticatedUser && authenticatedUser.id === user.id;
   return (
     <div className="border-l-8 px-4">
       <div className="flex gap-2 items-center">
@@ -23,7 +22,7 @@ export default function Comment({ content, user, authenticatedUser }) {
           <p className="font-semibold text-gray-800">{userName ?? ""}</p>
           <p>{content}</p>
         </div>
-        {isOwner && <AiFillEdit />}
+        <AiFillDelete onClick={onDelete} />
       </div>
     </div>
   );

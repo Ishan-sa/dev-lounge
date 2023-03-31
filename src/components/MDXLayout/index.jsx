@@ -1,4 +1,4 @@
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import { useRouter } from "next/router";
 
 import CommentsSection from "../CommentsSection/CommentsSection";
@@ -15,7 +15,12 @@ export default function Layout({ children }) {
   return (
     <div className="flex flex-col px-8 max-w-[800px] m-auto">
       {children}
-      {post && <CommentsSection post={post} />}
+      {post && (
+        <CommentsSection
+          post={post}
+          onNewComment={() => mutate(`/api/post?slug=${slug}`)}
+        />
+      )}
     </div>
   );
 }

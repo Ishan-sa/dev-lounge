@@ -75,7 +75,7 @@ export default function Nav() {
         >
           {menuLinkContent.map((item, index) => (
             <Navbar.Link
-              onPress={() => router.push(item.href)}
+              onClick={() => router.push(item.href)}
               key={index}
               isActive={
                 router.pathname === item.href ||
@@ -140,7 +140,7 @@ export default function Nav() {
                 css={{
                   minWidth: "100%",
                 }}
-                onPress={() => router.push(item.href)}
+                onClick={() => router.push(item.href)}
               >
                 {item.name}
               </Link>
