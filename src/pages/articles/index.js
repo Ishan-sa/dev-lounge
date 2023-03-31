@@ -5,13 +5,6 @@ import { prisma } from "../../../server/db/client";
 import { useRouter } from "next/router";
 
 export default function articles({ posts }) {
-  const imageArr = ["/blog-cards/useeffect-1.png", "/blog-cards/next-cra.png"];
-  const cardLinks = [
-    "/useeffect-react",
-    "/nextjs-cra",
-    "/tailwind-or-styledcomponents",
-    "/react-vs-svelte",
-  ];
   const router = useRouter();
   return (
     <>

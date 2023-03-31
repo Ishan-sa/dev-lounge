@@ -15,7 +15,7 @@ export default function Layout({ children }) {
   return (
     <div className="flex flex-col px-8 max-w-[800px] m-auto">
       {children}
-      {post && <CommentsSection postid={post.id} />}
+      {post && <CommentsSection post={post} />}
     </div>
   );
 }

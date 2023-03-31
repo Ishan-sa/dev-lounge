@@ -1,10 +1,9 @@
-import { prisma } from "../../../../server/db/client";
 import { getServerSession } from "next-auth";
+import { prisma } from "../../../../server/db/client";
+import { authOptions } from "../auth/[...nextauth].js";
 
 export default async function handler(req, res) {
-  // const session = await getServerSession();
-
-  // console.log("session", session);
+  const session = await getServerSession(req, res, authOptions);
 
   const { method, query } = req;
 
@@ -28,33 +27,37 @@ export default async function handler(req, res) {
       break;
 
     case "POST":
-      // if (!session) {
-      //   res.status(401).end("Unauthorized");
-      //   return;
-      // }
+      if (session) {
+        const { content, postId } = req.body;
+        console.log("session", session);
+        const userId = session.user.id;
 
-      const { title, content, postid } = req.body;
-      const newComment = await prisma.comment.create({
-        data: {
-          title,
-          content,
-          post: {
-            connect: {
-              id: postid,
+        const newComment = await prisma.comment.create({
+          data: {
+            content,
+            post: {
+              connect: {
+                id: postId,
+              },
+            },
+            user: {
+              connect: {
+                id: userId,
+              },
             },
           },
-        },
-        include: {
-          post: true,
-        },
-      });
-      res.status(201).json(newComment);
+          include: {
+            post: true,
+            user: true,
+          },
+        });
+        res.status(201).json(newComment);
+      } else {
+        res.status(401).end("Unauthorized");
+      }
       break;
 
     default:
       res.status(405).end(`Method ${method} Not Allowed`);
   }
 }
-
-// how to upload new mdx files into a built and deployed project
-// i.e: writing new pages for your blog and uploading those pages without having to rebuild and redeploy the entire app

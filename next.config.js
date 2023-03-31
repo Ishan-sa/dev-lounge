@@ -16,7 +16,7 @@ const nextConfig = {
   reactStrictMode: true,
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   images: {
-    domains: ["avatars.githubusercontent.com"],
+    domains: ["avatars.githubusercontent.com", "www.pngitem.com"],
   },
 };
 

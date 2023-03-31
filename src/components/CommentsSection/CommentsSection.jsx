@@ -1,16 +1,16 @@
-import { Button, Input, Textarea } from "@nextui-org/react";
-import useSWR from "swr";
-import { useSession } from "next-auth/react";
+import { Button, Textarea } from "@nextui-org/react";
+import { useSession, signIn } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 import Comment from "../Comments/Comment";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+export default function CommentsSection({ post }) {
+  // const [comment, setComment] = useState(content);
+  // console.log(comment);
 
-export default function CommentsSection({ postid }) {
-  const { data: comments } = useSWR(`/api/comment?postid=${postid}`, fetcher);
-
+  const router = useRouter();
   const { data: session } = useSession();
-
   const showForm = session;
 
   const handleSubmit = (e) => {
@@ -22,9 +22,8 @@ export default function CommentsSection({ postid }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // title: formData.get("title"),
         content: formData.get("content"),
-        postid,
+        postId: post.id,
       }),
     }).then((res) => {
       if (res.ok) {
@@ -36,9 +35,9 @@ export default function CommentsSection({ postid }) {
     <>
       <div className="flex flex-col gap-2 my-8 w-full">
         <h1 className="text-xl font-bold mb-2">Comments</h1>
-        {comments?.length
-          ? comments.map(({ id, title, content }) => (
-              <Comment key={id} title={title} content={content}></Comment>
+        {post.comments?.length
+          ? post.comments.map(({ id, content, user }) => (
+              <Comment key={id} content={content} user={user}></Comment>
             ))
           : "No comments yet :("}
         {showForm ? (
@@ -47,15 +46,6 @@ export default function CommentsSection({ postid }) {
               className="flex flex-col border-t-2 mt-4"
               onSubmit={(e) => handleSubmit(e)}
             >
-              {/* <div className="w-full flex mt-8">
-                <Input
-                  labelPlaceholder="Title"
-                  status="default"
-                  fullWidth={true}
-                  clearable={true}
-                  name="title"
-                />
-              </div> */}
               <div className="w-full flex mt-8">
                 <Textarea
                   labelPlaceholder="Add a comment..."
@@ -75,7 +65,15 @@ export default function CommentsSection({ postid }) {
             </form>
           </>
         ) : (
-          <h1 className="text-lg">You need to be signed in to comment.</h1>
+          <div className="bg-[#cbeaff] py-2 text-center rounded-lg my-2">
+            <h1 className="text-lg">You need to be signed in to comment.</h1>
+            <p
+              className="text-blue-500 cursor-pointer font-semibold"
+              onClick={() => signIn()}
+            >
+              Sign In now
+            </p>
+          </div>
         )}
       </div>
     </>

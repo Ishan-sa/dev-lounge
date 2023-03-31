@@ -10,6 +10,13 @@ export default async function handler(req, res) {
             where: {
               slug: query.slug,
             },
+            include: {
+              comments: {
+                include: {
+                  user: true,
+                },
+              },
+            },
           })
         : await prisma.post.findMany({
             orderBy: {
