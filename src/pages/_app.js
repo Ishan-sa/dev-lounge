@@ -36,7 +36,7 @@ export default function App({
                 attribute="class"
                 value={{
                   light: lightTheme.className,
-                  dark: darkTheme.className,
+                  // dark: darkTheme.className,
                 }}
               >
                 <Nav />
