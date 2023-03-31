@@ -5,11 +5,13 @@ import useSWR, { mutate } from "swr";
 import { useState } from "react";
 import Comment from "../Comments/Comment";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import Popup from "../Popover/Popover";
+import { CiMenuKebab } from "react-icons/ci";
 
 export default function CommentsSection({ post, onNewComment }) {
   const { data: session } = useSession();
   const [deletingCommentId, setDeletingCommentId] = useState(null);
-  const showForm = session;
+  const [editMode, setEditMode] = useState(false);
 
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data: comments } = useSWR(`/api/comment?postId=${post.id}`, fetcher);
@@ -60,6 +62,34 @@ export default function CommentsSection({ post, onNewComment }) {
     }
   }
 
+  async function handleEdit(id) {
+    if (!session) {
+      alert("You need to be signed in to edit a comment.");
+      return;
+    }
+
+    setEditMode(true);
+
+    try {
+      await axios.put(`/api/comment/${id}`);
+      onNewComment();
+
+      mutate(`/api/comment?postId=${post.id}`, (cachedData) => {
+        return cachedData.filter((comment) => comment.id !== id);
+      });
+    } catch (error) {
+      setEditMode(false);
+      console.log(error);
+      return <div>Error loading comments</div>;
+    }
+
+    if (!comments) {
+      return <div>Loading comments...</div>;
+    }
+
+    return <button type="submit">Submit</button>;
+  }
+
   return (
     <>
       <div className="flex flex-col gap-2 my-8 w-full">
@@ -74,22 +104,23 @@ export default function CommentsSection({ post, onNewComment }) {
                     session &&
                     user.id === session.user.id && (
                       <>
-                        <AiFillDelete
-                          onClick={() => handleDelete(id)}
-                          className="cursor-pointer text-red-500 hover:text-red-700 text-2xl"
-                        />
-                        <AiFillEdit
-                          className="cursor-pointer text-blue-500 hover:text-blue-700 text-2xl"
-                          onClick={() => console.log("edit")}
+                        <Popup
+                          onDeleteClick={() => handleDelete(id)}
+                          onEditClick={() => setEditMode(true)}
+                          popupIcon={
+                            <CiMenuKebab className="cursor-pointer text-gray-500 hover:text-gray-700 text-2xl" />
+                          }
                         />
                       </>
                     )
                   }
+                  showInput={editMode}
+                  onSubmit={() => handleEdit(id)}
                 />
               </div>
             ))
           : "No comments yet :("}
-        {showForm ? (
+        {session ? (
           <>
             <form
               className="flex flex-col border-t-2 mt-4"

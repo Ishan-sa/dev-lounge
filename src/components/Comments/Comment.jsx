@@ -1,7 +1,15 @@
 import Image from "next/image";
 import { useState } from "react";
 
-export default function Comment({ content, user, deleteBtn, editBtn }) {
+export default function Comment({
+  content,
+  user,
+  deleteBtn,
+  editBtn,
+  showInput = false,
+  onChange = (e) => {},
+  onSubmit = (e) => {},
+}) {
   const { image: userImage, name: userName } = user;
 
   const [updateBtns, setUpdateBtns] = useState(false);
@@ -37,6 +45,20 @@ export default function Comment({ content, user, deleteBtn, editBtn }) {
           <div className="flex flex-col">
             <p className="font-semibold text-gray-800">{userName ?? ""}</p>
             <p>{content}</p>
+            {showInput && (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  onSubmit(e);
+                }}
+              >
+                <input
+                  type="text"
+                  className="border-2 border-gray-300 p-2 rounded-lg w-full"
+                  onChange={onChange}
+                />
+              </form>
+            )}
           </div>
         </div>
         {updateBtns && (
