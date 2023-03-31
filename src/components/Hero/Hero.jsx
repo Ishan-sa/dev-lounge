@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -17,8 +18,16 @@ export default function Hero() {
           </h3>
         </div>
         <div className="flex gap-4">
-          <AiFillGithub className="text-4xl hover:text-blue-700" />
-          <AiFillLinkedin className="text-4xl" />
+          <Link href="https://github.com/Ishan-sa" target="_blank">
+            <AiFillGithub className="text-4xl transition-all duration-150 hover:text-blue-500 " />
+          </Link>
+
+          <Link
+            href="https://www.linkedin.com/in/ishan-sachdeva/"
+            target="_blank"
+          >
+            <AiFillLinkedin className="text-4xl transition-all duration-150 hover:text-blue-500 " />
+          </Link>
         </div>
       </div>
       <div className="flex mt-4 lg:mt-0">

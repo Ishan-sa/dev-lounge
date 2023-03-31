@@ -12,6 +12,7 @@ export default function CommentsSection({ post, onNewComment }) {
   const { data: session } = useSession();
   const [deletingCommentId, setDeletingCommentId] = useState(null);
   const [editMode, setEditMode] = useState(false);
+  // const [initialComment, setInitialComment] = useState(null);
 
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data: comments } = useSWR(`/api/comment?postId=${post.id}`, fetcher);
@@ -63,12 +64,12 @@ export default function CommentsSection({ post, onNewComment }) {
   }
 
   async function handleEdit(id) {
+    setEditMode(true);
+
     if (!session) {
       alert("You need to be signed in to edit a comment.");
       return;
     }
-
-    setEditMode(true);
 
     try {
       await axios.put(`/api/comment/${id}`);
@@ -86,8 +87,6 @@ export default function CommentsSection({ post, onNewComment }) {
     if (!comments) {
       return <div>Loading comments...</div>;
     }
-
-    return <button type="submit">Submit</button>;
   }
 
   return (
@@ -100,13 +99,15 @@ export default function CommentsSection({ post, onNewComment }) {
                 <Comment
                   content={content}
                   user={user}
+                  showInput={editMode}
+                  onChange={(e) => setContent(e.target.value)}
                   deleteBtn={
                     session &&
                     user.id === session.user.id && (
                       <>
                         <Popup
                           onDeleteClick={() => handleDelete(id)}
-                          onEditClick={() => setEditMode(true)}
+                          onEditClick={() => handleEdit(id)}
                           popupIcon={
                             <CiMenuKebab className="cursor-pointer text-gray-500 hover:text-gray-700 text-2xl" />
                           }
@@ -114,8 +115,6 @@ export default function CommentsSection({ post, onNewComment }) {
                       </>
                     )
                   }
-                  showInput={editMode}
-                  onSubmit={() => handleEdit(id)}
                 />
               </div>
             ))
