@@ -6,9 +6,6 @@ import { useState } from "react";
 import Comment from "../Comments/Comment";
 
 export default function CommentsSection({ post }) {
-  // const [comment, setComment] = useState(content);
-  // console.log(comment);
-
   const router = useRouter();
   const { data: session } = useSession();
   const showForm = session;
