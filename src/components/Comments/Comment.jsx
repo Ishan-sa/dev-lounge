@@ -3,6 +3,8 @@ import { useState } from "react";
 import { CiMenuKebab } from "react-icons/ci";
 import Popup from "../Popover/Popover";
 import { Button, Input, Loading } from "@nextui-org/react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Comment({
   content,
@@ -27,6 +29,7 @@ export default function Comment({
       onUpdate(content);
       e.target.reset();
       setIsEditing(false);
+      setIsDeleting(false);
     }, 1000);
   }
   function handleMouseEnter() {

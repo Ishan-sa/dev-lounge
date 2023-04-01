@@ -3,6 +3,8 @@ import axios from "axios";
 import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
 import Comment from "../Comments/Comment";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function CommentsSection({ post, onMutate }) {
   const { data: session } = useSession();
@@ -25,8 +27,9 @@ export default function CommentsSection({ post, onMutate }) {
       });
       e.target.reset();
       onMutate();
+      notifyAdd();
     } catch (error) {
-      console.log(error);
+      notifyError();
     }
   }
 
@@ -40,8 +43,9 @@ export default function CommentsSection({ post, onMutate }) {
         content,
       });
       onMutate();
+      notifyUpdate();
     } catch (error) {
-      console.log(error);
+      notifyError();
     }
   }
 
@@ -54,10 +58,36 @@ export default function CommentsSection({ post, onMutate }) {
     try {
       await axios.delete(`/api/comment/${id}`);
       onMutate();
+      notifyDelete();
     } catch (error) {
       setDeletingCommentId(null);
+      notifyError();
     }
   }
+
+  const notifyAdd = () => {
+    toast.success("Comment added successfully!", {
+      position: "top-right",
+    });
+  };
+
+  const notifyDelete = () => {
+    toast.info("Comment deleted successfully!", {
+      position: "top-right",
+    });
+  };
+
+  const notifyError = () => {
+    toast.error("Something went wrong!", {
+      position: "top-right",
+    });
+  };
+
+  const notifyUpdate = () => {
+    toast("Comment updated successfully!", {
+      position: "top-right",
+    });
+  };
 
   return (
     <>
@@ -112,6 +142,18 @@ export default function CommentsSection({ post, onMutate }) {
           </div>
         )}
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </>
   );
 }
