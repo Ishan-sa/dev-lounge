@@ -23,6 +23,16 @@ export default function Comment({
     e.preventDefault();
     setIsDeleting(true);
 
+    // check if input is empty, if so, don't update
+    const formData = new FormData(e.target);
+    const content = formData.get("content");
+    if (!content) {
+      // setIsEditing(false);
+      notifyError();
+      setIsDeleting(false);
+      return;
+    }
+
     setTimeout(() => {
       const formData = new FormData(e.target);
       const content = formData.get("content");
@@ -38,6 +48,12 @@ export default function Comment({
   function handleMouseLeave() {
     setShowUpdateBtns(false);
   }
+
+  const notifyError = () => {
+    toast.error("You can't leave the input empty :(", {
+      position: "top-right",
+    });
+  };
 
   return (
     <div
@@ -107,6 +123,18 @@ export default function Comment({
           />
         )}
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }
