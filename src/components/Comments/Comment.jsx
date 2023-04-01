@@ -52,7 +52,7 @@ export default function Comment({
               }
               width={40}
               height={40}
-              className="rounded-full"
+              className="rounded-full avatar-comment"
               alt="profile-image"
             />
           </div>
@@ -62,7 +62,7 @@ export default function Comment({
             {isEditing && (
               <form
                 onSubmit={handleSubmit}
-                className="flex items-center justify-center gap-4"
+                className="flex items-center justify-center gap-4 comment"
               >
                 <Input
                   type="text"
@@ -72,21 +72,24 @@ export default function Comment({
                   clearable
                   contentRight={isDeleting && <Loading size="xs" />}
                   color="primary"
+                  width="100%"
                 />
-                <Button
-                  type="submit"
-                  auto
-                  className="bg-blue-500 hover:bg-blue-700 text-white"
-                >
-                  Submit
-                </Button>
-                <Button
-                  auto
-                  onClick={() => setIsEditing(!isEditing)}
-                  className="bg-red-500 hover:bg-red-700 text-white"
-                >
-                  Cancel
-                </Button>
+                <div className="flex gap-2 w-full btn-cont">
+                  <Button
+                    type="submit"
+                    auto
+                    className="bg-blue-500 hover:bg-blue-700 text-white"
+                  >
+                    Update
+                  </Button>
+                  <Button
+                    auto
+                    onClick={() => setIsEditing(!isEditing)}
+                    className="bg-red-500 hover:bg-red-700 text-white"
+                  >
+                    Cancel
+                  </Button>
+                </div>
               </form>
             )}
           </div>
