@@ -1,4 +1,3 @@
-import "@/styles/globals.css";
 import { NextUIProvider, createTheme } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import Nav from "../components/Navbar/Navbar";
@@ -8,6 +7,7 @@ import { authOptions } from "./api/auth/[...nextauth]";
 import { MDXProvider } from "@mdx-js/react";
 import MDXComponents from "@/components/MDX-Styles/MDX-Styles";
 import { useSSR } from "@nextui-org/react";
+import "@/styles/globals.css";
 
 // 2. Call `createTheme` and pass your custom values
 const lightTheme = createTheme({

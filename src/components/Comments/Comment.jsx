@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { CiMenuKebab } from "react-icons/ci";
 import Popup from "../Popover/Popover";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input, Loading } from "@nextui-org/react";
 
 export default function Comment({
   content,
@@ -15,14 +15,19 @@ export default function Comment({
 
   const [isEditing, setIsEditing] = useState(false);
   const [showUpdateBtns, setShowUpdateBtns] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const content = formData.get("content");
-    onUpdate(content);
-    e.target.reset();
-    setIsEditing(false);
+    setIsDeleting(true);
+
+    setTimeout(() => {
+      const formData = new FormData(e.target);
+      const content = formData.get("content");
+      onUpdate(content);
+      e.target.reset();
+      setIsEditing(false);
+    }, 1000);
   }
   function handleMouseEnter() {
     setShowUpdateBtns(true);
@@ -33,7 +38,7 @@ export default function Comment({
 
   return (
     <div
-      className="border-l-8 px-4 hover:bg-gray-100"
+      className="border-l-8 px-4 hover:bg-gray-50"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -63,7 +68,10 @@ export default function Comment({
                   type="text"
                   name="content"
                   placeholder="Update your comment"
-                  className="m-0"
+                  className="m-0 text-[#272727]"
+                  clearable
+                  contentRight={isDeleting && <Loading size="xs" />}
+                  color="primary"
                 />
                 <Button
                   type="submit"
@@ -71,6 +79,13 @@ export default function Comment({
                   className="bg-blue-500 hover:bg-blue-700 text-white"
                 >
                   Submit
+                </Button>
+                <Button
+                  auto
+                  onClick={() => setIsEditing(!isEditing)}
+                  className="bg-red-500 hover:bg-red-700 text-white"
+                >
+                  Cancel
                 </Button>
               </form>
             )}
