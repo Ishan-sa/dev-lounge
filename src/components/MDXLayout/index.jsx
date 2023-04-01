@@ -18,7 +18,7 @@ export default function Layout({ children }) {
       {post && (
         <CommentsSection
           post={post}
-          onNewComment={() => mutate(`/api/post?slug=${slug}`)}
+          onMutate={() => mutate(`/api/post?slug=${slug}`)}
         />
       )}
     </div>

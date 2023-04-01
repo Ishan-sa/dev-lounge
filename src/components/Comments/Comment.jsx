@@ -1,25 +1,34 @@
 import Image from "next/image";
 import { useState } from "react";
+import { CiMenuKebab } from "react-icons/ci";
+import Popup from "../Popover/Popover";
+import { Button, Input } from "@nextui-org/react";
 
 export default function Comment({
   content,
   user,
-  deleteBtn,
-  editBtn,
-  showInput = false,
-  onChange = (e) => {},
-  onSubmit = (e) => {},
+  isEditable,
+  onUpdate = () => {},
+  onDelete = () => {},
 }) {
   const { image: userImage, name: userName } = user;
 
-  const [updateBtns, setUpdateBtns] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [showUpdateBtns, setShowUpdateBtns] = useState(false);
 
-  function handleMouseEnter() {
-    setUpdateBtns(true);
+  function handleSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const content = formData.get("content");
+    onUpdate(content);
+    e.target.reset();
+    setIsEditing(false);
   }
-
+  function handleMouseEnter() {
+    setShowUpdateBtns(true);
+  }
   function handleMouseLeave() {
-    setUpdateBtns(false);
+    setShowUpdateBtns(false);
   }
 
   return (
@@ -45,27 +54,36 @@ export default function Comment({
           <div className="flex flex-col">
             <p className="font-semibold text-gray-800">{userName ?? ""}</p>
             <p>{content}</p>
-            {showInput && (
+            {isEditing && (
               <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  onSubmit(e);
-                }}
+                onSubmit={handleSubmit}
+                className="flex items-center justify-center gap-4"
               >
-                <input
+                <Input
                   type="text"
-                  className="border-2 border-gray-300 p-2 rounded-lg w-full"
-                  onChange={onChange}
+                  name="content"
+                  placeholder="Update your comment"
+                  className="m-0"
                 />
+                <Button
+                  type="submit"
+                  auto
+                  className="bg-blue-500 hover:bg-blue-700 text-white"
+                >
+                  Submit
+                </Button>
               </form>
             )}
           </div>
         </div>
-        {updateBtns && (
-          <div className="flex flex-col gap-2">
-            <div className="flex">{deleteBtn}</div>
-            <div className="flex">{editBtn}</div>
-          </div>
+        {isEditable && showUpdateBtns && (
+          <Popup
+            onDeleteClick={onDelete}
+            onEditClick={() => setIsEditing(!isEditing)}
+            popupIcon={
+              <CiMenuKebab className="cursor-pointer text-gray-500 hover:text-gray-700 text-2xl" />
+            }
+          />
         )}
       </div>
     </div>
