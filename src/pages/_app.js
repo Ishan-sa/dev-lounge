@@ -8,6 +8,7 @@ import { MDXProvider } from "@mdx-js/react";
 import MDXComponents from "@/components/MDX-Styles/MDX-Styles";
 import { useSSR } from "@nextui-org/react";
 import "@/styles/globals.css";
+import Footer from "@/components/Footer/Footer";
 
 // 2. Call `createTheme` and pass your custom values
 const lightTheme = createTheme({
@@ -41,6 +42,7 @@ export default function App({
                 <Nav />
                 <MDXProvider components={MDXComponents}>
                   <Component {...pageProps} />
+                  <Footer />
                 </MDXProvider>
               </NextThemesProvider>
             </SessionProvider>

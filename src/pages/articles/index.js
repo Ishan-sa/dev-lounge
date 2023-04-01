@@ -8,7 +8,7 @@ export default function articles({ posts }) {
   const router = useRouter();
   return (
     <>
-      <div className="flex justify-start p-4">
+      <div className="flex justify-start p-4 h-full">
         <Posts
           title="Latest Articles"
           subtitle="WEB DEVELOPMENT SKILLS"

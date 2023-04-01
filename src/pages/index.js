@@ -4,6 +4,8 @@ import Posts from "@/components/Posts/Posts";
 import Head from "next/head";
 import { prisma } from "../../server/db/client";
 import { useRouter } from "next/router";
+import KeepChangingThis from "@/components/KeepChangingThis/KeepChangingThis";
+import TechStack from "@/components/TechStack/TechStack";
 
 export default function Home({ posts }) {
   const router = useRouter();
@@ -20,7 +22,13 @@ export default function Home({ posts }) {
         <div className="h-screen">
           <Hero />
         </div>
-        <div className="h-screen">
+        <div className="h-full">
+          <TechStack />
+        </div>
+        {/* <div className="h-screen">
+          <KeepChangingThis />
+        </div> */}
+        <div className="flex flex-col my-16">
           <Posts
             title="Coding Chronicles: Tales from the Keyboard"
             subtitle="LATEST FROM THE BLOG"
