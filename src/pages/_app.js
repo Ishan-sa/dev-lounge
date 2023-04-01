@@ -11,7 +11,6 @@ import "@/styles/globals.css";
 import Footer from "@/components/Footer/Footer";
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
 import { useRef, useState, useEffect } from "react";
-import MyLoadingBar from "@/components/LoadingBar/LoadingBar";
 import LoadingBar from "react-top-loading-bar";
 import { useRouter } from "next/router";
 
@@ -116,7 +115,7 @@ export default function App({
                 <Nav />
                 <MDXProvider components={MDXComponents}>
                   <Component {...pageProps} />
-                  <MyLoadingBar />
+
                   <div className="mt-14">
                     <Footer />
                   </div>
