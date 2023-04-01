@@ -22,14 +22,6 @@ export default function Nav() {
       href: "/articles",
       slug: `/articles/`,
     },
-    {
-      name: "Contact",
-      href: "/contact",
-    },
-    {
-      name: "About",
-      href: "/about",
-    },
   ];
 
   const { data: session } = useSession();

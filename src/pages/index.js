@@ -39,7 +39,7 @@ export default function Home({ posts }) {
           <TechStack />
         </div>
 
-        <div className="flex flex-col mt-[14rem] mb-[6rem]">
+        <div className="flex flex-col mt-[14rem] mb-[1rem]">
           <Posts
             title="Coding Chronicles: Tales from the Keyboard"
             subtitle="LATEST FROM THE BLOG"
@@ -63,7 +63,7 @@ export default function Home({ posts }) {
           <p
             ref={scrollRef}
             onClick={handleScroll}
-            className="text-[#bebebe] text-[1rem] font-bold cursor-pointer"
+            className="text-[#bebebe] text-[1rem] font-bold cursor-pointer text-center"
           >
             You've reached the end of the page. Scroll back up!
           </p>
