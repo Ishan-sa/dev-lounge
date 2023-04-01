@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { CiMenuKebab } from "react-icons/ci";
 import Popup from "../Popover/Popover";
+import { Button, Input } from "@nextui-org/react";
 
 export default function Comment({
   content,
@@ -54,13 +55,23 @@ export default function Comment({
             <p className="font-semibold text-gray-800">{userName ?? ""}</p>
             <p>{content}</p>
             {isEditing && (
-              <form onSubmit={handleSubmit}>
-                <input
+              <form
+                onSubmit={handleSubmit}
+                className="flex items-center justify-center gap-4"
+              >
+                <Input
                   type="text"
                   name="content"
-                  className="border-2 border-gray-300 p-2 rounded-lg w-full"
+                  placeholder="Update your comment"
+                  className="m-0"
                 />
-                <button>Submit</button>
+                <Button
+                  type="submit"
+                  auto
+                  className="bg-blue-500 hover:bg-blue-700 text-white"
+                >
+                  Submit
+                </Button>
               </form>
             )}
           </div>
