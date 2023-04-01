@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function TechStack() {
   const data1 = [
@@ -39,16 +40,32 @@ export default function TechStack() {
       <div className="flex flex-col justify-center items-center gap-8 mt-16">
         <div className="flex flex-wrap gap-14 justify-center items-center">
           {data1.map((item) => (
-            <div className="flex flex-col items-center gap-2 bg-gray-100 p-4 rounded-xl shadow-md hover:scale-[1.1] duration-200">
+            <motion.div
+              className="flex flex-col items-center gap-2 bg-gray-100 p-4 rounded-xl shadow-md"
+              whileHover={{ scale: 1.2, rotate: 90 }}
+              whileTap={{
+                scale: 0.8,
+                rotate: -90,
+                borderRadius: "100%",
+              }}
+            >
               <Image src={item} width={100} height={100} />
-            </div>
+            </motion.div>
           ))}
         </div>
         <div className="flex flex-wrap gap-14 justify-center items-center">
           {data2.map((item) => (
-            <div className="flex flex-col items-center gap-2 bg-gray-100 p-4 rounded-xl shadow-md hover:scale-[1.1] duration-200">
+            <motion.div
+              className="flex flex-col items-center gap-2 bg-gray-100 p-4 rounded-xl shadow-md"
+              whileHover={{ scale: 1.2, rotate: 90 }}
+              whileTap={{
+                scale: 0.8,
+                rotate: -90,
+                borderRadius: "100%",
+              }}
+            >
               <Image src={item} width={100} height={100} />
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

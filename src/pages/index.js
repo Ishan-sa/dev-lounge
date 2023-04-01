@@ -6,9 +6,22 @@ import { prisma } from "../../server/db/client";
 import { useRouter } from "next/router";
 import KeepChangingThis from "@/components/KeepChangingThis/KeepChangingThis";
 import TechStack from "@/components/TechStack/TechStack";
+import { useRef } from "react";
 
 export default function Home({ posts }) {
   const router = useRouter();
+
+  const scrollRef = useRef(null);
+
+  const handleScroll = () => {
+    scrollRef.current.scrollIntoView({ behavior: "smooth" });
+
+    // scroll to top
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <>
@@ -25,9 +38,7 @@ export default function Home({ posts }) {
         <div className="h-full">
           <TechStack />
         </div>
-        {/* <div className="h-screen">
-          <KeepChangingThis />
-        </div> */}
+
         <div className="flex flex-col mt-[14rem] mb-[6rem]">
           <Posts
             title="Coding Chronicles: Tales from the Keyboard"
@@ -44,6 +55,18 @@ export default function Home({ posts }) {
               );
             })}
           />
+        </div>
+        {/* <div className="h-full">
+          <KeepChangingThis />
+        </div> */}
+        <div className="flex justify-center items-center">
+          <p
+            ref={scrollRef}
+            onClick={handleScroll}
+            className="text-[#bebebe] text-[1rem] font-bold cursor-pointer"
+          >
+            You've reached the end of the page. Scroll back up!
+          </p>
         </div>
       </main>
     </>
