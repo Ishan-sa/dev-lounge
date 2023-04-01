@@ -1,38 +1,50 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# DevLounge
 
-## Getting Started
+Welcome to DevLounge, where we write one line of code at a time! This is a platform for me to share my knowledge and experience with others who are interested in the same field. As the sole author of this blog, I have complete control over the content and can tailor it to my specific interests and goals.
 
-First, run the development server:
+Through this app, I aim to provide valuable insights, tutorials, and opinion pieces on a range of topics related to web development, including programming languages, frameworks, design principles, best practices, and more. This blog also serves as a valuable resource for other developers who are looking to expand their knowledge and skills in web development.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+Please feel free to explore my articles and learn more about my experiences and insights in the field.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Stack Used
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+1. Next.js
+2. Tailwind CSS
+3. Prisma
+4. PostgreSQL
+5. NextAuth.js
+6. NextUI
+7. Framer Motion
+8. SWR
+9. MDX (Markdown + JSX) for blog posts
+10. Axios
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Steps to run locally
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+1. Clone the repository
+2. Install dependencies using `yarn install` or `npm install`
+3. Rename the `.env.example` file to `.env.local` in the root directory and change the values accordingly
+4. Run `yarn dev` or `npm run dev` to start the development server
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Features
 
-## Learn More
+1. Authentication using NextAuth.js
+2. Authorization using NextAuth.js
+3. CRUD operations for blog posts using Prisma ORM
 
-To learn more about Next.js, take a look at the following resources:
+## API Endpoints
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. `/api/comments` - To get all comments
+2. `/api/comments/:id` - To get a comment by id
+3. `/api/users` - To get all users
+4. `/api/users/:id` - To get a user by id
+5. `/api/post` - To get all posts
+6. `/api/post/:id` - To get a post by id
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Screenshots
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![Screenshot](/public/screenshots/1.png)
+![Screenshot](/public/screenshots/2.png)
+![Screenshot](/public/screenshots/3.png)
+![Screenshot](/public/screenshots/4.png)
+![Screenshot](/public/screenshots/5.png)
