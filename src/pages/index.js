@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import KeepChangingThis from "@/components/KeepChangingThis/KeepChangingThis";
 import TechStack from "@/components/TechStack/TechStack";
 import { useRef } from "react";
+import LoadingBar from "@/components/LoadingBar/LoadingBar";
 
 export default function Home({ posts }) {
   const router = useRouter();

@@ -11,6 +11,9 @@ import "@/styles/globals.css";
 import Footer from "@/components/Footer/Footer";
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
 import { useRef, useState, useEffect } from "react";
+import MyLoadingBar from "@/components/LoadingBar/LoadingBar";
+import LoadingBar from "react-top-loading-bar";
+import { useRouter } from "next/router";
 
 // 2. Call `createTheme` and pass your custom values
 const lightTheme = createTheme({
@@ -64,6 +67,34 @@ export default function App({
     }, 1000);
   };
 
+  const router = useRouter();
+
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const handleStart = (url) => {
+      if (url !== router.asPath) {
+        setProgress(30);
+      }
+    };
+
+    const handleComplete = (url) => {
+      if (url !== router.asPath) {
+        setProgress(100);
+      }
+    };
+
+    router.events.on("routeChangeStart", handleStart);
+    router.events.on("routeChangeComplete", handleComplete);
+    router.events.on("routeChangeError", handleComplete);
+
+    return () => {
+      router.events.off("routeChangeStart", handleStart);
+      router.events.off("routeChangeComplete", handleComplete);
+      router.events.off("routeChangeError", handleComplete);
+    };
+  }, []);
+
   return (
     <>
       {isBrowser && (
@@ -77,9 +108,15 @@ export default function App({
                   light: lightTheme.className,
                 }}
               >
+                <LoadingBar
+                  color={"#4287f5"}
+                  progress={progress}
+                  shadow={true}
+                />
                 <Nav />
                 <MDXProvider components={MDXComponents}>
                   <Component {...pageProps} />
+                  <MyLoadingBar />
                   <div className="mt-14">
                     <Footer />
                   </div>
