@@ -1,14 +1,10 @@
 import { prisma } from "../../../../server/db/client";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth].js";
 
 export default async function handler(req, res) {
   const { method, query } = req;
-  const session = await getServerSession(req, res, authOptions);
 
   switch (method) {
     case "GET":
-      // if (session) {
       const posts = query.slug
         ? await prisma.post.findUnique({
             where: {
@@ -28,9 +24,6 @@ export default async function handler(req, res) {
             },
           });
       res.status(200).json(posts);
-      // } else {
-      res.status(401).end("Unauthorized");
-      // }
       break;
 
     case "POST":

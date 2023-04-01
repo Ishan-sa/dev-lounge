@@ -10,7 +10,6 @@ export default async function handler(req, res) {
 
   switch (method) {
     case "GET":
-      // if (session) {
       const comment = await prisma.comment.findUnique({
         where: {
           id: Number.parseInt(commentId),
@@ -25,9 +24,6 @@ export default async function handler(req, res) {
       } else {
         res.status(200).json(comment);
       }
-      // } else {
-      // res.status(401).end("Unauthorized");
-      // }
       break;
 
     case "PUT":
@@ -64,16 +60,12 @@ export default async function handler(req, res) {
       break;
 
     case "DELETE":
-      if (session) {
-        const deletedComment = await prisma.comment.delete({
-          where: {
-            id: Number.parseInt(query.id),
-          },
-        });
-        res.status(200).json(deletedComment);
-      } else {
-        res.status(401).end("Unauthorized");
-      }
+      const deletedComment = await prisma.comment.delete({
+        where: {
+          id: Number.parseInt(query.id),
+        },
+      });
+      res.status(200).json(deletedComment);
       break;
 
     default:

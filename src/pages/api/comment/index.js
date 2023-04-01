@@ -9,7 +9,6 @@ export default async function handler(req, res) {
 
   switch (method) {
     case "GET":
-      // if (session) {
       const comments = query.postid
         ? await prisma.comment.findMany({
             where: {
@@ -25,10 +24,6 @@ export default async function handler(req, res) {
             },
           });
       res.status(200).json(comments);
-      // } else {
-      // res.status(401).end("Unauthorized");
-      // }
-
       break;
 
     case "POST":
