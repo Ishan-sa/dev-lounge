@@ -32,10 +32,7 @@ const MDXComponents = {
   th: (props) => <th className="border border-gray-300 px-4 py-2" {...props} />,
   td: (props) => <td className="border border-gray-300 px-4 py-2" {...props} />,
   div: (props) => (
-    <div
-      className="flex flex-col px-4 max-w-[800px] m-auto gap-2 py-4"
-      {...props}
-    />
+    <div className="flex flex-col max-w-[800px] m-auto gap-2 py-4" {...props} />
   ),
   centerDiv: (props) => <div className="flex text-center mt-8" {...props} />,
 };
