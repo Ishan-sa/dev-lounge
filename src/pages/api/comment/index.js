@@ -26,7 +26,7 @@ export default async function handler(req, res) {
           });
       res.status(200).json(comments);
       // } else {
-      res.status(401).end("Unauthorized");
+      // res.status(401).end("Unauthorized");
       // }
 
       break;
