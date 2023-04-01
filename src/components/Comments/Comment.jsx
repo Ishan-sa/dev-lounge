@@ -104,7 +104,7 @@ export default function Comment({
                   <Button
                     auto
                     onClick={() => setIsEditing(!isEditing)}
-                    className="bg-red-500 hover:bg-red-700 text-white"
+                    className="bg-red-500 !important hover:bg-red-700 text-white"
                   >
                     Cancel
                   </Button>
