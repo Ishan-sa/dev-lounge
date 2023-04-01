@@ -42,7 +42,9 @@ export default function App({
                 <Nav />
                 <MDXProvider components={MDXComponents}>
                   <Component {...pageProps} />
-                  <Footer />
+                  <div className="mt-14">
+                    <Footer />
+                  </div>
                 </MDXProvider>
               </NextThemesProvider>
             </SessionProvider>

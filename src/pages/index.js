@@ -28,7 +28,7 @@ export default function Home({ posts }) {
         {/* <div className="h-screen">
           <KeepChangingThis />
         </div> */}
-        <div className="flex flex-col my-16">
+        <div className="flex flex-col mt-[14rem] mb-[6rem]">
           <Posts
             title="Coding Chronicles: Tales from the Keyboard"
             subtitle="LATEST FROM THE BLOG"

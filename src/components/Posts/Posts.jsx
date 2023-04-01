@@ -1,6 +1,3 @@
-import { useState, useEffect } from "react";
-import Card1 from "../Card/Card";
-
 export default function Posts({ cardData, title, subtitle }) {
   return (
     <>
