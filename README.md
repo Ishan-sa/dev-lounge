@@ -1,6 +1,6 @@
 # DevLounge
 
-Welcome to DevLounge, where we write one line of code at a time! This is a platform for me to share my knowledge and experience with others who are interested in the same field. As the sole author of this blog, I have complete control over the content and can tailor it to my specific interests and goals.
+Welcome to DevLounge, where I write one line of code at a time! This is a platform for me to share my knowledge and experience with others who are interested in the same field. As the sole author of this blog, I have complete control over the content and can tailor it to my specific interests and goals.
 
 Through this app, I aim to provide valuable insights, tutorials, and opinion pieces on a range of topics related to web development, including programming languages, frameworks, design principles, best practices, and more. This blog also serves as a valuable resource for other developers who are looking to expand their knowledge and skills in web development.
 
