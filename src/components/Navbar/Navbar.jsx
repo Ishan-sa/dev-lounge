@@ -49,6 +49,17 @@ export default function Nav() {
     }
   };
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleMenuClick = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLinkClick = () => {
+    setIsMenuOpen(false);
+    document.querySelector(".navbar-toggler").click();
+  };
+
   return (
     <Layout>
       <Navbar isBordered variant="sticky">
@@ -106,7 +117,11 @@ export default function Nav() {
           )}
 
           <div className="block lg:hidden">
-            <Navbar.Toggle aria-label="toggle navigation" />
+            <Navbar.Toggle
+              aria-label="toggle navigation"
+              onClick={handleMenuClick}
+              className="navbar-toggler"
+            />
           </div>
           {/* <div>
             <Switch
@@ -124,7 +139,13 @@ export default function Nav() {
           />
         </Navbar.Content>
 
-        <Navbar.Collapse className="block lg:hidden">
+        {/* Mobile Menu */}
+
+        {/* close the menu when click on a link in the menu */}
+
+        <Navbar.Collapse
+          className={`block lg:hidden ${isMenuOpen ? "show" : ""}`}
+        >
           {menuLinkContent.map((item, index) => (
             <Navbar.CollapseItem key={index}>
               <Link
@@ -132,7 +153,9 @@ export default function Nav() {
                 css={{
                   minWidth: "100%",
                 }}
-                onClick={() => router.push(item.href)}
+                onClick={() => {
+                  router.push(item.href), handleLinkClick();
+                }}
               >
                 {item.name}
               </Link>
