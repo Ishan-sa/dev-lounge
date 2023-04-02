@@ -89,23 +89,99 @@ export default function CommentsSection({ post, onMutate }) {
     });
   };
 
+  // const dateObj = new Date(createdAt);
+  // const today = new Date();
+  // const yesterday = new Date(today);
+  // yesterday.setDate(yesterday.getDate() - 1);
+
+  // if (dateObj.toDateString() === today.toDateString()) {
+  //   // Today's date
+  //   const hours = dateObj.getHours() % 12 || 12; // Convert to 12-hour format
+  //   const minutes = dateObj.getMinutes();
+  //   const amPm = dateObj.getHours() < 12 ? "AM" : "PM";
+  //   const time = hours + ":" + (minutes < 10 ? "0" : "") + minutes + " " + amPm;
+  //   console.log("Today at " + time);
+  // } else if (dateObj.toDateString() === yesterday.toDateString()) {
+  //   // Yesterday's date
+  //   console.log("Yesterday");
+  // } else {
+  //   // Older than yesterday
+  //   const options = {
+  //     month: "long",
+  //     day: "numeric",
+  //     hour: "numeric",
+  //     minute: "numeric",
+  //   };
+  //   const formattedDate = dateObj.toLocaleDateString("en-US", options);
+  //   console.log(formattedDate);
+  // }
+
   return (
     <>
       <div className="flex flex-col gap-2 my-8 w-full">
         <h1 className="text-xl font-bold mb-2">Comments</h1>
         {Array.isArray(comments)
-          ? comments.map(({ id, content, user }) => (
-              <div key={id}>
-                <Comment
-                  content={content}
-                  user={user}
-                  isEditable={session && user.id === session.user.id}
-                  onUpdate={(content) => handleUpdate(id, content)}
-                  onDelete={() => handleDelete(id)}
-                />
-              </div>
-            ))
+          ? comments.map(({ id, content, user, createdAt }) => {
+              // Format date as per the requirements
+              const dateObj = new Date(createdAt);
+              const today = new Date();
+              const yesterday = new Date(today);
+              yesterday.setDate(yesterday.getDate() - 1);
+
+              let date;
+              if (dateObj.toDateString() === today.toDateString()) {
+                // Today's date
+                const hours = dateObj.getHours() % 12 || 12; // Convert to 12-hour format
+                const minutes = dateObj.getMinutes();
+                const amPm = dateObj.getHours() < 12 ? "AM" : "PM";
+                const time =
+                  hours +
+                  ":" +
+                  (minutes < 10 ? "0" : "") +
+                  minutes +
+                  " " +
+                  amPm;
+                date = "Today at " + time;
+              } else if (dateObj.toDateString() === yesterday.toDateString()) {
+                // Yesterday's date
+                const hours = dateObj.getHours() % 12 || 12; // Convert to 12-hour format
+                const minutes = dateObj.getMinutes();
+                const amPm = dateObj.getHours() < 12 ? "AM" : "PM";
+                const time =
+                  hours +
+                  ":" +
+                  (minutes < 10 ? "0" : "") +
+                  minutes +
+                  " " +
+                  amPm;
+                date = "Yesterday at " + time;
+              } else {
+                // Older than yesterday
+                const options = {
+                  month: "long",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                };
+                date = dateObj.toLocaleDateString("en-US", options);
+              }
+
+              // Render Comment component
+              return (
+                <div key={id}>
+                  <Comment
+                    content={content}
+                    user={user}
+                    datePosted={date}
+                    isEditable={session && user.id === session.user.id}
+                    onUpdate={(content) => handleUpdate(id, content)}
+                    onDelete={() => handleDelete(id)}
+                  />
+                </div>
+              );
+            })
           : "No comments yet :("}
+
         {session ? (
           <>
             <form
@@ -157,3 +233,11 @@ export default function CommentsSection({ post, onMutate }) {
     </>
   );
 }
+
+// new Date(createdAt).toLocaleDateString("en-US", {
+//   month: "short",
+//   day: "numeric",
+//   year: "numeric",
+// }) +
+// " at " +
+// new Date(createdAt).toLocaleTimeString("en-US")

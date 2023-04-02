@@ -10,6 +10,7 @@ export default function Comment({
   content,
   user,
   isEditable,
+  datePosted,
   onUpdate = () => {},
   onDelete = () => {},
 }) {
@@ -62,8 +63,8 @@ export default function Comment({
       onMouseLeave={handleMouseLeave}
     >
       <div className="flex gap-2 items-center justify-between ">
-        <div className="flex gap-4 items-center">
-          <div>
+        <div className="flex gap-4 items-center w-[90%] justify-between">
+          <div className="flex justify-center items-center gap-4">
             <Image
               src={
                 userImage ||
@@ -74,44 +75,51 @@ export default function Comment({
               className="rounded-full avatar-comment"
               alt="profile-image"
             />
+            <div className="flex flex-col">
+              <div className="flex items-center gap-2">
+                <p className="font-semibold text-gray-800">{userName ?? ""}</p>
+                <p className="text-gray-500 text-xs">{datePosted}</p>
+              </div>
+              <p>{content}</p>
+
+              {isEditing && (
+                <form
+                  onSubmit={handleSubmit}
+                  className="flex items-center justify-center gap-4 comment"
+                >
+                  <Input
+                    type="text"
+                    name="content"
+                    placeholder="Update your comment"
+                    className="m-0 text-[#272727]"
+                    clearable
+                    contentRight={isDeleting && <Loading size="xs" />}
+                    color="primary"
+                    width="100%"
+                  />
+                  <div className="flex gap-2 w-full btn-cont">
+                    <Button
+                      type="submit"
+                      auto
+                      className="bg-blue-500 hover:bg-blue-700 text-white"
+                    >
+                      Update
+                    </Button>
+                    <Button
+                      auto
+                      onClick={() => setIsEditing(!isEditing)}
+                      className="bg-red-500 !important hover:bg-red-700 text-white"
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                </form>
+              )}
+            </div>
           </div>
-          <div className="flex flex-col">
-            <p className="font-semibold text-gray-800">{userName ?? ""}</p>
-            <p>{content}</p>
-            {isEditing && (
-              <form
-                onSubmit={handleSubmit}
-                className="flex items-center justify-center gap-4 comment"
-              >
-                <Input
-                  type="text"
-                  name="content"
-                  placeholder="Update your comment"
-                  className="m-0 text-[#272727]"
-                  clearable
-                  contentRight={isDeleting && <Loading size="xs" />}
-                  color="primary"
-                  width="100%"
-                />
-                <div className="flex gap-2 w-full btn-cont">
-                  <Button
-                    type="submit"
-                    auto
-                    className="bg-blue-500 hover:bg-blue-700 text-white"
-                  >
-                    Update
-                  </Button>
-                  <Button
-                    auto
-                    onClick={() => setIsEditing(!isEditing)}
-                    className="bg-red-500 !important hover:bg-red-700 text-white"
-                  >
-                    Cancel
-                  </Button>
-                </div>
-              </form>
-            )}
-          </div>
+          {/* <div className="flex">
+            <p className="text-gray-500 text-sm">{datePosted}</p>
+          </div> */}
         </div>
         {isEditable && showUpdateBtns && (
           <Popup
