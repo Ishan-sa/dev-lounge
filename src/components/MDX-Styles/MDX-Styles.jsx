@@ -34,7 +34,7 @@ const MDXComponents = {
   div: (props) => (
     <div className="flex flex-col max-w-[800px] m-auto gap-2 py-4" {...props} />
   ),
-  centerDiv: (props) => <div className="flex text-center mt-8" {...props} />,
+  Centerdiv: (props) => <div className="flex text-center mt-8" {...props} />,
 };
 
 export default MDXComponents;
