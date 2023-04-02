@@ -111,6 +111,7 @@ export default function App({
                   color={"#4287f5"}
                   progress={progress}
                   shadow={true}
+                  height={3}
                 />
                 <Nav />
                 <MDXProvider components={MDXComponents}>
