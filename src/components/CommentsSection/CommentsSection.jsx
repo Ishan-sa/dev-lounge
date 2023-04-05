@@ -12,6 +12,10 @@ export default function CommentsSection({ post, onMutate }) {
 
   const { comments } = post;
 
+  // post.comments = comments.sort((a, b) => {
+  //   return new Date(b.datePosted) - new Date(a.datePosted);
+  // });
+
   const notify = (message, type, position) => {
     switch (type) {
       case "success":

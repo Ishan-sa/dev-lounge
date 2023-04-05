@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import Card1 from "../Card/Card";
 
 import CommentsSection from "../CommentsSection/CommentsSection";
-import { useEffect } from "react";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
