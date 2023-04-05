@@ -221,11 +221,3 @@ export default function CommentsSection({ post, onMutate }) {
     </>
   );
 }
-
-// new Date(createdAt).toLocaleDateString("en-US", {
-//   month: "short",
-//   day: "numeric",
-//   year: "numeric",
-// }) +
-// " at " +
-// new Date(createdAt).toLocaleTimeString("en-US")

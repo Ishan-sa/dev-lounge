@@ -117,9 +117,6 @@ export default function Comment({
               )}
             </div>
           </div>
-          {/* <div className="flex">
-            <p className="text-gray-500 text-sm">{datePosted}</p>
-          </div> */}
         </div>
         {isEditable && showUpdateBtns && (
           <Popup
