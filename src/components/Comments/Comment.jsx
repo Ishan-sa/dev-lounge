@@ -80,7 +80,7 @@ export default function Comment({
                 <p className="font-semibold text-gray-800">{userName ?? ""}</p>
                 <p className="text-gray-500 text-xs">{datePosted}</p>
               </div>
-              <p>{content}</p>
+              <p className="wrap-content">{content}</p>
 
               {isEditing && (
                 <form

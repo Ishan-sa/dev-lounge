@@ -24,6 +24,10 @@ html {
   box-shadow: 2px 3px 30px 0px rgba(0, 0, 0, 0.12);
 }
 
+.wrap-content {
+  word-wrap: anywhere;
+}
+
 /* make .comment responsive for mobile */
 @media (max-width: 445px) {
   .comment {
