@@ -12,24 +12,59 @@ export default function CommentsSection({ post, onMutate }) {
 
   const { comments } = post;
 
+  const notify = (message, type, position) => {
+    switch (type) {
+      case "success":
+        toast.success(message, {
+          position: position || "top-right",
+        });
+        break;
+      case "info":
+        toast.info(message, {
+          position: position || "top-right",
+        });
+        break;
+      case "error":
+        toast.error(message, {
+          position: position || "top-right",
+        });
+        break;
+      default:
+        toast(message, {
+          position: position || "top-right",
+        });
+        break;
+    }
+  };
+
   async function handleSubmit(e) {
     if (!session) {
       alert("You need to be signed in to delete a comment.");
       return;
     }
     e.preventDefault();
+
     try {
       const formData = new FormData(e.target);
       const content = formData.get("content");
+
+      if (!content) {
+        notify(
+          "BRUH, at least write something in the comment section💀",
+          "error"
+        );
+        return;
+      }
+
       await axios.post(`/api/comment`, {
         content,
         postId: post.id,
       });
       e.target.reset();
       onMutate();
-      notifyAdd();
+      notify("Damn, you added a comment, cool.", "success");
     } catch (error) {
-      notifyError();
+      notify("Something went wrong!", "error");
     }
   }
 
@@ -43,9 +78,12 @@ export default function CommentsSection({ post, onMutate }) {
         content,
       });
       onMutate();
-      notifyUpdate();
+      notify("Wow, you can edit comments too? Cool.");
     } catch (error) {
-      notifyError();
+      notify(
+        "Something went wrong! idk what, figure it out yourself.",
+        "error"
+      );
     }
   }
 
@@ -58,63 +96,18 @@ export default function CommentsSection({ post, onMutate }) {
     try {
       await axios.delete(`/api/comment/${id}`);
       onMutate();
-      notifyDelete();
+      notify(
+        "Why did you even make the comment if you wanted to delete it at the end? Anyways, it's gone now.",
+        "info"
+      );
     } catch (error) {
       setDeletingCommentId(null);
-      notifyError();
+      notify(
+        "Something went wrong! idk what, figure it out yourself.",
+        "error"
+      );
     }
   }
-
-  const notifyAdd = () => {
-    toast.success("Comment added successfully!", {
-      position: "top-right",
-    });
-  };
-
-  const notifyDelete = () => {
-    toast.info("Comment deleted successfully!", {
-      position: "top-right",
-    });
-  };
-
-  const notifyError = () => {
-    toast.error("Something went wrong!", {
-      position: "top-right",
-    });
-  };
-
-  const notifyUpdate = () => {
-    toast("Comment updated successfully!", {
-      position: "top-right",
-    });
-  };
-
-  // const dateObj = new Date(createdAt);
-  // const today = new Date();
-  // const yesterday = new Date(today);
-  // yesterday.setDate(yesterday.getDate() - 1);
-
-  // if (dateObj.toDateString() === today.toDateString()) {
-  //   // Today's date
-  //   const hours = dateObj.getHours() % 12 || 12; // Convert to 12-hour format
-  //   const minutes = dateObj.getMinutes();
-  //   const amPm = dateObj.getHours() < 12 ? "AM" : "PM";
-  //   const time = hours + ":" + (minutes < 10 ? "0" : "") + minutes + " " + amPm;
-  //   console.log("Today at " + time);
-  // } else if (dateObj.toDateString() === yesterday.toDateString()) {
-  //   // Yesterday's date
-  //   console.log("Yesterday");
-  // } else {
-  //   // Older than yesterday
-  //   const options = {
-  //     month: "long",
-  //     day: "numeric",
-  //     hour: "numeric",
-  //     minute: "numeric",
-  //   };
-  //   const formattedDate = dateObj.toLocaleDateString("en-US", options);
-  //   console.log(formattedDate);
-  // }
 
   return (
     <>
