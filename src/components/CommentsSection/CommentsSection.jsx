@@ -117,13 +117,21 @@ export default function CommentsSection({ post, onMutate }) {
     }
   }
 
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (comments) {
+  //       setLoading(false);
+  //     }
+  //   }, 1000);
+  // }, []);
+
   useEffect(() => {
     setTimeout(() => {
       if (comments) {
         setLoading(false);
       }
     }, 1000);
-  }, []);
+  }, [comments]);
 
   return (
     <>
