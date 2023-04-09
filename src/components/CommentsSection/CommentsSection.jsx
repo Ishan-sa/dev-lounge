@@ -5,10 +5,14 @@ import { useState } from "react";
 import Comment from "../Comments/Comment";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Lottie from "lottie-react";
+import { useEffect } from "react";
 
 export default function CommentsSection({ post, onMutate }) {
   const { data: session } = useSession();
   const [deletingCommentId, setDeletingCommentId] = useState(null);
+
+  const [loading, setLoading] = useState(true);
 
   const { comments } = post;
 
@@ -113,103 +117,139 @@ export default function CommentsSection({ post, onMutate }) {
     }
   }
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (comments) {
+        setLoading(false);
+      }
+    }, 1000);
+  }, []);
+
   return (
     <>
       <div className="flex flex-col gap-2 my-8 w-full">
         <h1 className="text-xl font-bold mb-2">Comments</h1>
-        {comments && comments.length > 0 ? (
-          comments.map(({ id, content, user, createdAt }) => {
-            // Format date as per the requirements
-            const dateObj = new Date(createdAt);
-            const today = new Date();
-            const yesterday = new Date(today);
-            yesterday.setDate(yesterday.getDate() - 1);
-
-            let date;
-            if (dateObj.toDateString() === today.toDateString()) {
-              // Today's date
-              const hours = dateObj.getHours() % 12 || 12; // Convert to 12-hour format
-              const minutes = dateObj.getMinutes();
-              const amPm = dateObj.getHours() < 12 ? "AM" : "PM";
-              const time =
-                hours + ":" + (minutes < 10 ? "0" : "") + minutes + " " + amPm;
-              date = "Today at " + time;
-            } else if (dateObj.toDateString() === yesterday.toDateString()) {
-              // Yesterday's date
-              const hours = dateObj.getHours() % 12 || 12; // Convert to 12-hour format
-              const minutes = dateObj.getMinutes();
-              const amPm = dateObj.getHours() < 12 ? "AM" : "PM";
-              const time =
-                hours + ":" + (minutes < 10 ? "0" : "") + minutes + " " + amPm;
-              date = "Yesterday at " + time;
-            } else {
-              // Older than yesterday
-              const options = {
-                month: "long",
-                day: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-              };
-              date = dateObj.toLocaleDateString("en-US", options);
-            }
-
-            // Render Comment component
-            return (
-              <div key={id}>
-                <Comment
-                  content={content}
-                  user={user}
-                  datePosted={date}
-                  isEditable={session && user.id === session.user.id}
-                  onUpdate={(content) => handleUpdate(id, content)}
-                  onDelete={() => handleDelete(id)}
-                />
-              </div>
-            );
-          })
-        ) : (
-          <div className="flex flex-col items-start justify-start">
-            <h1 className="text-xl font-bold mb-2">No comments yet.</h1>
-            <p className="text-gray-500">Be the first one to comment!</p>
+        {loading ? (
+          <div className="flex justify-center items-center">
+            <Lottie
+              animationData={require("../../../public/lottie-files/loading1.json")}
+              loop={true}
+              autoplay={true}
+              style={{ width: 100, height: 100 }}
+            />
           </div>
-        )}
-
-        {session ? (
+        ) : (
           <>
-            <form
-              className="flex flex-col border-t-2 mt-4"
-              onSubmit={(e) => handleSubmit(e)}
-            >
-              <div className="w-full flex mt-8">
-                <Textarea
-                  labelPlaceholder="Add a comment..."
-                  status="default"
-                  fullWidth={true}
-                  clearable={true}
-                  name="content"
-                />
+            {comments && comments.length > 0 ? (
+              comments.map(({ id, content, user, createdAt }) => {
+                // Format date as per the requirements
+                const dateObj = new Date(createdAt);
+                const today = new Date();
+                const yesterday = new Date(today);
+                yesterday.setDate(yesterday.getDate() - 1);
+
+                let date;
+                if (dateObj.toDateString() === today.toDateString()) {
+                  // Today's date
+                  const hours = dateObj.getHours() % 12 || 12; // Convert to 12-hour format
+                  const minutes = dateObj.getMinutes();
+                  const amPm = dateObj.getHours() < 12 ? "AM" : "PM";
+                  const time =
+                    hours +
+                    ":" +
+                    (minutes < 10 ? "0" : "") +
+                    minutes +
+                    " " +
+                    amPm;
+                  date = "Today at " + time;
+                } else if (
+                  dateObj.toDateString() === yesterday.toDateString()
+                ) {
+                  // Yesterday's date
+                  const hours = dateObj.getHours() % 12 || 12; // Convert to 12-hour format
+                  const minutes = dateObj.getMinutes();
+                  const amPm = dateObj.getHours() < 12 ? "AM" : "PM";
+                  const time =
+                    hours +
+                    ":" +
+                    (minutes < 10 ? "0" : "") +
+                    minutes +
+                    " " +
+                    amPm;
+                  date = "Yesterday at " + time;
+                } else {
+                  // Older than yesterday
+                  const options = {
+                    month: "long",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                  };
+                  date = dateObj.toLocaleDateString("en-US", options);
+                }
+
+                // Render Comment component
+                return (
+                  <div key={id}>
+                    <Comment
+                      content={content}
+                      user={user}
+                      datePosted={date}
+                      isEditable={session && user.id === session.user.id}
+                      onUpdate={(content) => handleUpdate(id, content)}
+                      onDelete={() => handleDelete(id)}
+                    />
+                  </div>
+                );
+              })
+            ) : (
+              <div className="flex flex-col items-start justify-start">
+                <h1 className="text-xl font-bold mb-2">No comments yet.</h1>
+                <p className="text-gray-500">Be the first one to comment!</p>
               </div>
-              <Button
-                type="submit"
-                className="bg-blue-500 hover:bg-blue-700 text-white mt-4"
-                auto
-              >
-                Submit
-              </Button>
-            </form>
+            )}
+
+            {session ? (
+              <>
+                <form
+                  className="flex flex-col border-t-2 mt-4"
+                  onSubmit={(e) => handleSubmit(e)}
+                >
+                  <div className="w-full flex mt-8">
+                    <Textarea
+                      labelPlaceholder="Add a comment..."
+                      status="default"
+                      fullWidth={true}
+                      clearable={true}
+                      name="content"
+                    />
+                  </div>
+                  <Button
+                    type="submit"
+                    className="bg-blue-500 hover:bg-blue-700 text-white mt-4"
+                    auto
+                  >
+                    Submit
+                  </Button>
+                </form>
+              </>
+            ) : (
+              <div className="bg-[#cbeaff] py-2 text-center rounded-lg my-2">
+                <h1 className="text-lg">
+                  You need to be signed in to comment.
+                </h1>
+                <p
+                  className="text-blue-500 cursor-pointer font-semibold"
+                  onClick={() => signIn()}
+                >
+                  Sign In now
+                </p>
+              </div>
+            )}
           </>
-        ) : (
-          <div className="bg-[#cbeaff] py-2 text-center rounded-lg my-2">
-            <h1 className="text-lg">You need to be signed in to comment.</h1>
-            <p
-              className="text-blue-500 cursor-pointer font-semibold"
-              onClick={() => signIn()}
-            >
-              Sign In now
-            </p>
-          </div>
         )}
       </div>
+
       <ToastContainer
         position="top-right"
         autoClose={5000}
