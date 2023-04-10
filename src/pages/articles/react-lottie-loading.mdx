@@ -1,0 +1,251 @@
+import Layout from "@/components/MDXLayout";
+
+<div className="flex flex-col w-full m-auto gap-2">
+<Centerdiv className="flex text-center mt-8 font-bold text-3xl">
+# Adding Loading animation using Lottie Files in React
+</Centerdiv>
+The article assumes that the reader has a Next.js app set up, but they can use CRA or Vite instead. To use Lottie files in a React application, you need to install the Lottie React library by running `yarn add lottie-react` in the terminal. You can then download a Lottie animation from [lottiefiles.com] and save it in the public directory in your Next.js app.
+
+## Step 1: Install the Lottie React library
+
+To use Lottie files in a React application, we'll need to install the Lottie React library. We can do this by running the following command in our terminal:
+
+```bash
+yarn add lottie-react
+```
+
+## Step 2: Download the Lottie File
+
+You can go to [lottiefiles.com](http://lottiefiles.com) to download your choice of animation to display for the time being data is being fetched.
+
+For this tutorial I’ll be just going with a simple loading animation.
+
+[https://lottiefiles.com/98194-loading](https://lottiefiles.com/98194-loading)
+
+Download the file as _Lottie JSON_ and save it in the public directory in your next app.
+
+## Step 3: Import the Lottie file
+
+Once we have the package installed the file downloaded, we can start writing some code and displaying the animation on the page.
+
+So on your `index.js` page, let’s import the package.
+
+```jsx
+import Lottie from "lottie-react";
+```
+
+Then, let’s use this component in our return statement-
+
+```jsx
+import Lottie from "lottie-react";
+
+export default function Home() {
+  return (
+    <>
+      <h1 className="text-3xl">Lottie Animation</h1>
+      <Lottie
+        animationData={require("../../public/loading.json")}
+        style={{ width: 300, height: 300 }}
+        autoplay={true}
+        loop={true}
+      />
+    </>
+  );
+}
+```
+
+This will give you your component on your page, and your page should be displaying a loading animation now. Cool!
+
+## Step 4: Making API calls and showing the loading animation
+
+Now, we will make an api call to this endpoint- [https://dummyjson.com/products](https://dummyjson.com/products), and while the data is being fetched we will show the loading animation.
+
+For this, we will use the `useState` and `useEffect` hook from `react`. And, `axios` to make the api call.
+
+So, let’s start import that first.
+
+```jsx
+import { useState, useEffect } from "react";
+import axios from "axios";
+```
+
+Now, let’s set a loading state, and another state to store the data that is being fetched from the api, and initialize it with a null value.
+
+```jsx
+const [loading, setLoading] = useState(false);
+const [data, setData] = useState(null);
+```
+
+Now, let’s write an async function to make the API call to the endpoint.
+
+```jsx
+async function getData() {
+  try {
+    setLoading(true);
+    const response = await axios.get("https://dummyjson.com/products");
+    const data = Object.values(response.data.products);
+    setData(data);
+    setLoading(false);
+  } catch (error) {
+    console.error(error);
+    setLoading(false);
+  }
+}
+
+useEffect(() => {
+  getData();
+}, []);
+```
+
+In this function we are using **`axios`** to make the call and setting the loading state to true before fetching the data from the api. Once the data is being fetched, we are setting the `loading` state back to `false` again. Once, this is done, now our `data` state has access to all the data that comes from the api.
+
+We are also using the `useEffect` hook to call the `getData()` function on every page load.
+
+## Step 5: Render the data on the UI
+
+Now we can just use the `map` function to render the data on the UI.
+
+```jsx
+<main className="px-6 py-4">
+  <h1 className="text-3xl">Lottie Animation</h1>
+  {loading && (
+    <Lottie
+      animationData={require("../../public/loading.json")}
+      style={{ width: 300, height: 300 }}
+      autoplay={true}
+      loop={true}
+    />
+  )}
+  <div className="flex flex-col gap-4">
+    {data &&
+      data.map((item) => {
+        return (
+          <div key={item.id}>
+            <h1 className="font-bold text-lg">{item.title}</h1>
+            <p>{item.description}</p>
+          </div>
+        );
+      })}
+  </div>
+</main>
+```
+
+## Step 6: Adding fake timer
+
+To add a `setTimeout` to the `getData` function, you can modify the `useEffect` like this:
+
+```jsx
+useEffect(() => {
+  setTimeout(() => {
+    getData();
+  }, 2000);
+}, []);
+```
+
+This will delay the setting of the `data` and `loading` states by 2 seconds to simulate a longer data fetching time.
+
+```jsx
+<main className="px-6 py-4">
+  <h1 className="text-3xl">Lottie Animation</h1>
+  {loading && (
+    <Lottie
+      animationData={require("../../public/loading.json")}
+      style={{ width: 300, height: 300 }}
+      autoplay={true}
+      loop={true}
+    />
+  )}
+  {data && data.length > 0 && (
+    <div className="flex flex-col gap-4">
+      {data.map((item) => {
+        return (
+          <div key={item.id}>
+            <h1 className="font-bold text-lg">{item.title}</h1>
+            <p>{item.description}</p>
+          </div>
+        );
+      })}
+    </div>
+  )}
+  {!loading && !data && (
+    <Lottie
+      animationData={require("../../public/loading.json")}
+      style={{ width: 300, height: 300 }}
+      autoplay={true}
+      loop={true}
+    />
+  )}
+</main>
+```
+
+At the end your index.js should look like this-
+
+```jsx
+import Lottie from "lottie-react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+export default function Home() {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState(null);
+
+  async function getData() {
+    try {
+      setLoading(true);
+      const response = await axios.get("https://dummyjson.com/products");
+      const data = Object.values(response.data.products);
+      setData(data);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    setTimeout(() => {
+      getData();
+    }, 2000);
+  }, []);
+
+  return (
+    <main className="px-6 py-4">
+      <h1 className="text-3xl">Lottie Animation</h1>
+      {loading && (
+        <Lottie
+          animationData={require("../../public/loading.json")}
+          style={{ width: 300, height: 300 }}
+          autoplay={true}
+          loop={true}
+        />
+      )}
+      {data && data.length > 0 && (
+        <div className="flex flex-col gap-4">
+          {data.map((item) => {
+            return (
+              <div key={item.id}>
+                <h1 className="font-bold text-lg">{item.title}</h1>
+                <p>{item.description}</p>
+              </div>
+            );
+          })}
+        </div>
+      )}
+      {!loading && !data && (
+        <Lottie
+          animationData={require("../../public/loading.json")}
+          style={{ width: 300, height: 300 }}
+          autoplay={true}
+          loop={true}
+        />
+      )}
+    </main>
+  );
+}
+```
+
+In conclusion, displaying a loading animation when making API calls is essential for keeping users informed of what's happening. Lottie files provide an efficient and customizable way to achieve this goal. With this tutorial, you can easily add a Lottie animation to your Next.js app for any API calls.
+
+</div>
+
+export default ({ children }) => <Layout>{children}</Layout>;
