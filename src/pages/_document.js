@@ -19,15 +19,6 @@ class MyDocument extends Document {
             rel="stylesheet"
             href="https://unpkg.com/prism-themes/themes/prism-dracula.css"
           ></link>
-          <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=G-DLQ6C6XP2C"
-          ></script>
-          <script>
-            window.dataLayer = window.dataLayer || []; function gtag()
-            {dataLayer.push(arguments)}
-            gtag('js', new Date()); gtag('config', 'G-DLQ6C6XP2C');
-          </script>
           {CssBaseline.flush()}
         </Head>
         <body>
