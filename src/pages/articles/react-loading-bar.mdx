@@ -1,5 +1,6 @@
 import Layout from "@/components/MDXLayout";
 import Link from "next/link";
+import CodeBlock from "@/components/CodeBlock/CodeBlock";
 
 <div className="flex flex-col w-full m-auto gap-2">
 <Centerdiv className="flex text-center mt-8 font-bold text-3xl">
@@ -9,10 +10,10 @@ Next.js is a popular framework for building React applications with server-side 
 
 ### Let's start by creating a Next.js app
 
-```jsx
-yarn create next-app myloadingapp
-cd myloadingapp
-```
+<CodeBlock className="language-bash">
+{`yarn create next-app myloadingapp
+cd myloadingapp`}
+</CodeBlock>
 
 Once everything is setted up, you can open it in your favorite code editor, (I use VS Code), you can use whatever you feel comfortable with.
 
@@ -20,9 +21,9 @@ Once everything is setted up, you can open it in your favorite code editor, (I u
 
 Let's install the `react-top-loading-bar` package now which will allow us to easily integrate the loader.
 
-```jsx
-yarn add react-top-loading-bar
-```
+<CodeBlock className="language-bash">
+{`yarn add react-top-loading-bar`}
+</CodeBlock>
 
 ### Make some pages
 
@@ -33,7 +34,10 @@ Under your pages directory, we will create 2 more pages by the name of-
 1. contact.js
 2. about.js
 
-```jsx
+
+<CodeBlock className="language-jsx">
+{
+`
 // pages/contact.js
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -48,9 +52,13 @@ export default function contact() {
     </>
   );
 }
-```
+`
+}
+</CodeBlock>
 
-```jsx
+<CodeBlock className="language-jsx">
+{
+`
 // pages/about.js
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -65,26 +73,30 @@ export default function about() {
     </>
   );
 }
-```
+`
+}
+</CodeBlock>
+
 
 ### Routing
 
 For the routing, we will be using `useRouter()` that comes from `next/router`. We will import that on our `index.js` page.
 
-```jsx
-import { useRouter } from "next/router";
-```
+
+<CodeBlock className="language-jsx">
+  {`import { useRouter } from "next/router";`}
+</CodeBlock>
 
 and we will initialize it with
 
-```jsx
-const router = useRouter();
-```
+<CodeBlock className="language-jsx">
+  {`const router = useRouter();`}
+</CodeBlock>
 
 We will also add some html for the links. At the end your pages/index.js should look like this
 
-```jsx
-// pages/index.js
+<CodeBlock className="language-jsx">
+  {`// pages/index.js
 import Head from "next/head";
 
 import { useRouter } from "next/router";
@@ -131,30 +143,31 @@ export default function Home() {
       </main>
     </>
   );
-}
-```
+}`}
+</CodeBlock>
+
 
 Once everything is setup, now we will start implementing the loading bar. Now, in our `_app.js` file, we will do all the loading bar-stuff.
 
 Let's start by importing some stuff.
-
-```jsx
-import { useState, useEffect } from "react";
-import LoadingBar from "react-top-loading-bar";
-import { useRouter } from "next/router";
-```
+<CodeBlock className="language-jsx">
+  {`import { useState, useEffect } from "react";
+  import LoadingBar from "react-top-loading-bar";
+  import { useRouter } from "next/router";`}
+</CodeBlock>
 
 Now, we need a state to check and manage the loading bar state and if the page is being routed or not-
 so, let's have a progress state and keep it `0` by default-
 
-```jsx
-const [progress, setProgress] = useState(0);
-```
+<CodeBlock className="language-jsx">
+{`const [progress, setProgress] = useState(0);`}
+</CodeBlock>
 
 Now, in the return statement, let's put in the `LoadingBar` component and attach the `progress` state to it-
 
-```jsx
-export default function App({ Component, pageProps }) {
+
+<CodeBlock className="language-jsx">
+{`export default function App({ Component, pageProps }) {
   return (
     <>
       <Component {...pageProps} />
@@ -166,12 +179,13 @@ export default function App({ Component, pageProps }) {
       />
     </>
   );
-}
-```
+}`}
+</CodeBlock>
 
 Now, let's write the function to handle the loading bar animation, all of this will be done in a `useEffect` because we want the function to be callled everytime the page changes.
 
-```jsx
+<CodeBlock className="language-jsx">
+{`
 useEffect(() => {
   const handleStart = () => {
     setProgress(0);
@@ -188,7 +202,8 @@ useEffect(() => {
     router.events.off("routeChangeError", handleComplete);
   };
 }, []);
-```
+`}
+</CodeBlock>
 
 The `useEffect` hook is used to set up event listeners for the `routeChangeStart`, `routeChangeComplete`, and `routeChangeError` events that are emitted by the router when a new page is being loaded. These events can be used to track the progress of the page loading process and update the loading bar accordingly.
 
@@ -202,7 +217,9 @@ Finally, the return statement in the `useEffect` hook is used to clean up the ev
 
 So, finally, your `_app.js` should look like this-
 
-```jsx
+<CodeBlock className="language-jsx">
+{
+`
 import "@/styles/globals.css";
 import { useState, useEffect } from "react";
 import LoadingBar from "react-top-loading-bar";
@@ -239,7 +256,9 @@ export default function App({ Component, pageProps }) {
     </>
   );
 }
-```
+`
+}
+</CodeBlock>
 
 We are almost done! Now, if you run your application and navigate through the pages, you should see the loading bar in action.
 
