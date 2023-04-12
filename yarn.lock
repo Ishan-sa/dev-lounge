@@ -2870,6 +2870,11 @@ prism-js@^1.0.0:
   resolved "https://registry.yarnpkg.com/prism-js/-/prism-js-1.0.0.tgz#8b6079d583ec751854cdce3e8fec18ef6d8ca15f"
   integrity sha512-uf1/Idu/ReVrfoRfgDQ5yjlgVer+u0Z3Jps8O1yry3FIgbg7C7GvNbvLXr+9JHltma612VD4j928onKeHHyqow==
 
+prism-themes@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/prism-themes/-/prism-themes-1.9.0.tgz#19c034f3205f1e28d75d89728e54ccd745f7e3dd"
+  integrity sha512-tX2AYsehKDw1EORwBps+WhBFKc2kxfoFpQAjxBndbZKr4fRmMkv47XN0BghC/K1qwodB1otbe4oF23vUTFDokw==
+
 prisma@^4.11.0:
   version "4.11.0"
   resolved "https://registry.yarnpkg.com/prisma/-/prisma-4.11.0.tgz#9695ba4129a43eab3e76b5f7a033c6c020377725"
