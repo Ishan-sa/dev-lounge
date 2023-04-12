@@ -10,7 +10,11 @@ function CopyButton({ text, className = "", onClick = () => {} }) {
     }
   };
 
-  return <IoCopyOutline className={className} onClick={onClick} />;
+  return (
+    <>
+      <IoCopyOutline className={className} onClick={onClick} />
+    </>
+  );
 }
 
 export default CopyButton;
