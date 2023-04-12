@@ -1,4 +1,5 @@
 import Layout from "@/components/MDXLayout";
+import CodeBlock from "@/components/CodeBlock/CodeBlock";
 
 <div className="flex flex-col w-full m-auto gap-2">
 <Centerdiv className="flex text-center mt-8 font-bold text-3xl">
@@ -25,15 +26,21 @@ CRA Example
 
 **First, let's create a new React project using CRA:**
 
-```bash
+<CodeBlock className="language-bash">
+{
+`
 npx create-react-app cra-example
 cd cra-example
 npm start
-```
+`
+}
+</CodeBlock>
 
 Next, let's create a simple blog post component:
 
-```jsx
+<CodeBlock className="language-jsx">
+{
+`
 import React from "react";
 
 const BlogPost = ({ title, content }) => {
@@ -46,11 +53,15 @@ const BlogPost = ({ title, content }) => {
 };
 
 export default BlogPost;
-```
+`
+}
+</CodeBlock>
 
 Finally, let's render a list of blog posts in our app:
 
-```jsx
+<CodeBlock className="language-jsx">
+{
+`
 import React from "react";
 import BlogPost from "./BlogPost";
 
@@ -77,22 +88,31 @@ const App = () => {
 };
 
 export default App;
-```
+`
+}
+</CodeBlock>
 
 When we run this application, we can see that the blog posts are being rendered on the client-side. This means that the browser must download the JavaScript code and then render the blog posts.
 Next.js Example
 
 **Next, let's create the same application using Next.js:**
 
-```bash
+<CodeBlock className="language-bash">
+{
+`
 npx create-next-app next-example
 cd next-example
 npm run dev
-```
+`
+}
+</CodeBlock>
+
 
 Next.js automatically sets up server-side rendering, so we can use the same blog post component as before. The only change we need to make is to update our pages/index.js file to fetch the blog posts from an API endpoint:
 
-```jsx
+<CodeBlock className="language-jsx">
+{
+`
 import React from "react";
 import BlogPost from "../components/BlogPost";
 
@@ -113,7 +133,9 @@ export async function getServerSideProps() {
 }
 
 export default Home;
-```
+`
+}
+</CodeBlock>
 
 In this example, we are using the getServerSideProps function to fetch the blog posts from the API endpoint on the server-side. This means that the blog posts will be pre-rendered on the server and delivered to the client as fully rendered HTML pages. As a result, the browser only needs to download the HTML, CSS, and JavaScript required to make the application interactive, resulting in a faster initial load time.
 
