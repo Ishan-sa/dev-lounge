@@ -1,8 +1,9 @@
 import Layout from "@/components/MDXLayout";
+import CodeBlock from "@/components/CodeBlock/CodeBlock";
 
 <div className="flex flex-col w-full m-auto gap-2">
 <Centerdiv className="flex text-center mt-8 font-bold text-xl">
-React
+### React
 </Centerdiv>
 React is a popular front-end library that allows developers to build powerful, dynamic
 user interfaces with ease. One of the core features of React is the useEffect hook,
@@ -24,7 +25,9 @@ When the component mounts, React will call the callback function once. If there 
 
 Here's an example of using the `useEffect` hook to fetch data from an API:
 
-```javascript
+<CodeBlock className="language-jsx">
+{
+`
 import { useEffect, useState } from "react";
 
 function MyComponent() {
@@ -50,7 +53,9 @@ function MyComponent() {
     </div>
   );
 }
-```
+`
+}
+</CodeBlock>
 
 In this example, we use the `useState` hook to initialize a state variable called `data` to `null`. We then use the `useEffect` hook to fetch data from an API using the fetch function. We pass an empty array as the second argument to useEffect, which means that the callback function will only be called once when the component mounts.
 
