@@ -33,11 +33,7 @@ function CodeBlock({ children, className }) {
 
   return (
     <div className="relative">
-      <CopyButton
-        text={text}
-        className="absolute top-0 right-0 m-[1rem] text-[#7f8ea2] text-3xl hover:text-[#9aacc4] duration-200 cursor-pointer bg-[#3f4750] p-[5px] rounded-lg hover:bg-[#58626e]"
-        onClick={handleCopy}
-      />
+      <CopyButton text={text} onClick={handleCopy} />
       <pre className={`language-${language}`}>
         <code ref={codeRef} className={`language-${language}`}>
           {text}
