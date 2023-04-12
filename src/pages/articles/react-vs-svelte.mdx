@@ -1,4 +1,5 @@
 import Layout from "@/components/MDXLayout";
+import CodeBlock from "@/components/CodeBlock/CodeBlock";
 
 <div className="flex flex-col w-full m-auto gap-2 mt-8">
 React and Svelte are two popular front-end web development frameworks that allow developers to create dynamic and responsive user interfaces. In this article, we'll compare the two frameworks and provide examples to demonstrate their differences.
@@ -9,15 +10,23 @@ React is a JavaScript library for building user interfaces. It was developed by 
 
 Let's start by creating a simple React app. First, we need to install the React library and create a new app using the following commands:
 
-```bash
+
+<CodeBlock className="language-bash">
+{
+`
 npx create-react-app my-app
 cd my-app
 npm start
-```
+`
+}
+</CodeBlock>
 
 This will create a new React app and start a development server. Now, let's create a simple component that displays a list of items.
 
-```jsx
+
+<CodeBlock className="language-jsx">
+{
+`
 // src/components/List.js
 
 import React from "react";
@@ -32,13 +41,16 @@ const List = ({ items }) => {
   );
 };
 export default List;
-```
+`
+}
+</CodeBlock>
 
 In this example, we created a List component that receives an array of items as a prop and renders them in an unordered list. We used the map() function to loop over the items and create a list item for each one.
 
 Now let's use the List component in our app.
-
-```jsx
+<CodeBlock className="language-jsx">
+{
+`
 // src/App.js
 
 import React from "react";
@@ -60,7 +72,10 @@ const App = () => {
 };
 
 export default App;
-```
+`
+}
+</CodeBlock>
+
 
 In this example, we imported the List component and used it in our App component. We also passed an array of items as a prop to the List component.
 
@@ -70,16 +85,23 @@ Svelte is a front-end framework that was released in 2016. It is known for its s
 
 Let's create a simple Svelte app. First, we need to install the Svelte compiler and create a new app using the following commands:
 
-```bash
+
+<CodeBlock className="language-bash">
+{
+`
 npx degit sveltejs/template my-app
 cd my-app
 npm install
 npm run dev
-```
+`
+}
+</CodeBlock>
 
 This will create a new Svelte app and start a development server. Now, let's create a simple component that displays a list of items.
 
-```jsx
+<CodeBlock className="language-jsx">
+{
+`
 <!-- src/components/List.svelte -->
 
 <script>
@@ -91,13 +113,17 @@ This will create a new Svelte app and start a development server. Now, let's cre
     <li>{item.name}</li>
   {/each}
 </ul>
-```
+`
+}
+</CodeBlock>
 
 In this example, we created a List component that receives an array of items as a prop and renders them in an unordered list. We used the each block to loop over the items and create a list item for each one.
 
 Now let's use the List component in our app.
 
-```jsx
+<CodeBlock className="language-jsx">
+{
+`
 <!-- src/App.svelte -->
 
 <script>
@@ -116,8 +142,10 @@ Now let's use the List component in our app.
   <h1>List Component Example (Svelte)</h1>
   <List items={items} />
 </main>
+`
+}
+</CodeBlock>
 
-```
 
 In this example, we imported the List component and used it in our App component. We also passed an array of items as a prop to the List component.
 
@@ -146,8 +174,9 @@ React is a larger library than Svelte, which means that React apps can be larger
 In our examples, we saw that both React and Svelte can be used to create a list component. However, the syntax and API for each framework is quite different.
 
 ##### React Example
-
-```jsx
+<CodeBlock className="language-jsx">
+{
+`
 // src/components/List.js
 
 import React from "react";
@@ -163,23 +192,29 @@ const List = ({ items }) => {
 };
 
 export default List;
-```
+`
+}
+</CodeBlock>
 
 ##### Svelte Example
+<CodeBlock className="language-jsx">
+{
+`
+  <!-- src/components/List.svelte -->
 
-```jsx
-<!-- src/components/List.svelte -->
+  <script>
+    export let items;
+  </script>
 
-<script>
-  export let items;
-</script>
+  <ul>
+    {#each items as item}
+    <li>{item.name}</li>
+    {/each}
+  </ul>
+`
+}
 
-<ul>
-  {#each items as item}
-  <li>{item.name}</li>
-  {/each}
-</ul>
-```
+</CodeBlock>
 
 As you can see, the syntax for React and Svelte is quite different.
 
