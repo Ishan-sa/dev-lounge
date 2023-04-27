@@ -13,6 +13,7 @@ import { BsFillArrowUpCircleFill } from "react-icons/bs";
 import { useRef, useState, useEffect } from "react";
 import LoadingBar from "react-top-loading-bar";
 import { useRouter } from "next/router";
+import { Analytics } from "@vercel/analytics/react";
 
 // 2. Call `createTheme` and pass your custom values
 const lightTheme = createTheme({
@@ -116,7 +117,7 @@ export default function App({
                 <Nav />
                 <MDXProvider components={MDXComponents}>
                   <Component {...pageProps} />
-
+                  <Analytics />
                   <div className="mt-14">
                     <Footer />
                   </div>
